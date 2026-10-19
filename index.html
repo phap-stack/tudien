@@ -1,595 +1,2788 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Từ điển Luật học (佛律辭典)</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        :root {
-            --bg-color: #FDFBF7;
-            --btn-color: #8B5A2B;
-            --btn-hover: #6F4518;
-            --text-dark: #333333;
-            --accent-red: #800020;
-            --border-color: #D4C5B9;
-        }
+  <title>Từ điển Luật học · 佛律辭典</title>
 
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            min-height: 95vh;
-        }
+  <style>
+   /* Thu gọn khoảng cách phía trên nội dung */
+main {
+  padding-top: 12px;
+}
 
-        header {
-            text-align: center;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--accent-red);
-            padding-bottom: 10px;
-            position: relative;
-        }
+/* Khối tiêu đề tra cứu */
+#listView .intro {
+  height: auto;
+  min-height: 0;
+  margin: 0 0 12px;
+  padding: 10px 0;
+}
 
-        h1 {
-            color: var(--accent-red);
-            font-size: 2.2rem;
-            margin: 0;
-        }
+/* Dòng HỌC LUẬT · HIỂU NGHĨA · THỰC HÀNH */
+#listView .intro .eyebrow {
+  margin: 0 0 5px;
+  line-height: 1.2;
+}
 
-        .chinese-title {
-            font-family: 'Noto Serif TC', "Kaiti SC", "KaiTi", serif;
-            font-size: 1.5rem;
-            color: var(--accent-red);
-            margin-top: 5px;
-        }
+/* Tiêu đề Tra cứu_Học giới */
+#listView .intro h2 {
+  margin: 5px 0;
+  line-height: 1.2;
+}
 
-        .user-badge {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            background: #F7F1E5;
-            border: 1px solid var(--accent-red);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: var(--accent-red);
-            font-weight: bold;
-        }
+/* Câu chữ Hán bên dưới */
+#listView .intro p {
+  margin: 5px 0 0;
+  line-height: 1;
+} 
+    :root {
+      --background: #FDFBF7;
+      --brown: #8B5A2B;
+      --red: #800020;
+      --text: #392F28;
+      --border: #E1D5C5;
+      --soft: #F3ECDF;
+      --white: #FFFFFF;
+    }
 
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        .btn {
-            background-color: var(--btn-color);
-            color: white;
-            padding: 9px 18px;
-            border: 2px solid var(--accent-red);
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 1rem;
-            font-weight: bold;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
+    [hidden] {
+      display: none !important;
+    }
 
-        .btn:hover {
-            background-color: var(--btn-hover);
-        }
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.5;
+    }
 
-        .main-container {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-            flex: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
 
-        @media (max-width: 768px) {
-            .main-container {
-                grid-template-columns: 1fr;
-            }
-        }
+    button {
+      cursor: pointer;
+    }
 
-        .card {
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
+    button,
+    .file-button {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--brown);
+      transition: background 0.2s, border-color 0.2s;
+    }
 
-        .search-box {
-            width: 100%;
-            padding: 12px;
-            font-size: 1.1rem;
-            font-family: 'Times New Roman', Times, serif;
-            border: 2px solid var(--accent-red);
-            border-radius: 6px;
-            box-sizing: border-box;
-            margin-bottom: 8px;
-            background-color: #FFFEFA;
-        }
+    button:hover,
+    .file-button:hover {
+      background: var(--soft);
+      border-color: var(--brown);
+    }
 
-        .search-hint {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 12px;
-            font-style: italic;
-        }
+    button:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
 
-        .results-list {
-            max-height: 450px;
-            overflow-y: auto;
-            border-top: 1px solid var(--border-color);
-        }
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    a:focus-visible {
+      outline: 3px solid #BC925E;
+      outline-offset: 3px;
+    }
 
-        .term-item {
-            padding: 12px;
-            border-bottom: 1px solid var(--border-color);
-            cursor: pointer;
-            transition: background 0.2s;
-        }
+    .primary {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: white;
+    }
 
-        .term-item:hover {
-            background-color: #F7F1E5;
-        }
+    .primary:hover {
+      background: #724720;
+      color: white;
+    }
 
-        .term-title {
-            font-weight: bold;
-            color: var(--accent-red);
-            font-size: 1.1rem;
-        }
+    .han {
+      font-family:
+        "Kaiti TC",
+        "KaiTi",
+        "楷體",
+        "Noto Serif TC",
+        serif;
+    }
 
-        .chinese-text {
-            font-family: 'Noto Serif TC', "Kaiti SC", "KaiTi", serif;
-            margin-left: 8px;
-            color: #555;
-        }
+    header {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
 
-        .detail-view h3 {
-            color: var(--accent-red);
-            margin-top: 0;
-            border-bottom: 1px dashed var(--accent-red);
-            padding-bottom: 8px;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
 
-        .detail-row {
-            margin-bottom: 10px;
-        }
+    .seal {
+      background: var(--red);
+      color: var(--background);
+      font-size: 36px;
+      padding: 0 14px;
+      border-radius: 5px;
+    }
 
-        .detail-row strong {
-            color: var(--btn-color);
-        }
+    h1 {
+      margin: 0;
+      color: var(--red);
+      font-size: 30px;
+      line-height: 1.3;
+    }
 
-        .china-font {
-            font-family: 'Noto Serif TC', "Kaiti SC", "KaiTi", serif;
-        }
+    .brand-subtitle {
+      color: var(--brown);
+      letter-spacing: 4px;
+    }
 
-        .word-note-section {
-            margin-top: 15px;
-            border-top: 1px dashed var(--accent-red);
-            padding-top: 10px;
-        }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      background: rgba(253, 251, 247, 0.97);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
 
-        .word-note-section textarea {
-            width: 100%;
-            height: 90px;
-            padding: 8px;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 0.95rem;
-            border: 1px solid var(--accent-red);
-            border-radius: 4px;
-            box-sizing: border-box;
-            background-color: #FFFEFA;
-            resize: vertical;
-        }
+    nav button.active {
+      color: white;
+      background: var(--brown);
+      border-color: var(--brown);
+    }
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-        }
+    main {
+      max-width: 1020px;
+      min-height: 65vh;
+      margin: auto;
+      padding: 28px 24px 50px;
+    }
 
-        .modal-content {
-            background-color: var(--bg-color);
-            border: 2px solid var(--accent-red);
-            padding: 25px;
-            border-radius: 8px;
-            width: 80%;
-            max-width: 800px;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
+    .intro {
+      text-align: center;
+      padding: 18px 0 25px;
+    }
 
-        .close-btn {
-            color: var(--accent-red);
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            line-height: 20px;
-        }
+    .eyebrow {
+      color: var(--brown);
+      font-size: 12px;
+      letter-spacing: 3px;
+    }
 
-        .close-btn:hover {
-            color: var(--btn-hover);
-        }
+    h2 {
+      color: var(--red);
+      font-size: 32px;
+      margin: 10px 0;
+    }
 
-        .notebook-item {
-            background: #fff;
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 6px;
-        }
+    h3 {
+      color: var(--red);
+      margin: 0 0 10px;
+      font-size: 23px;
+    }
 
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-color);
-            color: var(--accent-red);
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
+    p {
+      margin: 10px 0;
+    }
 
-        .footer-zh {
-            font-family: 'Noto Serif TC', "Kaiti SC", "KaiTi", serif;
-            font-size: 1.2rem;
-            margin-left: 5px;
+    .search-row {
+      display: flex;
+      gap: 10px;
+      margin: 8px 0 16px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      color: var(--text);
+    }
+
+    .search-row input {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .chips button {
+      border-radius: 24px;
+      font-size: 16px;
+      padding: 7px 14px;
+    }
+
+    .chips button.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: white;
+    }
+
+    .status {
+      color: #786552;
+      font-size: 15px;
+      margin: 16px 0;
+    }
+
+   .results-list {
+      max-height: 50vh;
+      overflow-y: auto;
+      border-top: 1px solid var(--border-color);
         }
-    </style>
+  
+/* Thu gọn từng ô thuật ngữ */
+.results .result-card {
+  width:100%;
+  padding: 8px 16px;
+  text-align: left;
+  min-height: 0;
+  height: auto;
+  line-height: 1.35;
+}
+
+
+/* Thiết kế từng dòng mục gợi ý trong danh sách */
+.term-item {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+    .empty {
+      grid-column: 1 / -1;
+      padding: 15px;
+      text-align: center;
+      background: var(--soft);
+      border-radius: 10px;
+    }
+
+    #loadMore {
+      display: block;
+      margin: 24px auto 0;
+    }
+
+    .detail-header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .detail-header h2 {
+      font-size: 30px;
+    }
+
+    .detail-header .han {
+      color: var(--brown);
+      font-size: 28px;
+    }
+
+    .detail-section {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .content {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .content.han {
+      font-size: 23px;
+      line-height: 1.9;
+    }
+
+    .note-box {
+      margin-top: 30px;
+      padding: 24px;
+      background: var(--soft);
+      border-radius: 12px;
+    }
+
+    textarea {
+      display: block;
+      min-height: 150px;
+      margin: 10px 0 14px;
+      resize: vertical;
+    }
+
+    .small {
+      font-size: 15px;
+      color: #786552;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    footer {
+      padding: 25px 16px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: #786552;
+      font-size: 14px;
+    }
+
+    a {
+      color: var(--red);
+    }
+
+    footer a {
+      display: inline-block;
+      margin: 4px 12px;
+    }
+
+    dialog {
+      width: min(740px, calc(100% - 28px));
+      max-height: 90vh;
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    dialog::backdrop {
+      background: rgba(30, 20, 10, 0.55);
+    }
+
+    dialog input {
+      margin: 6px 0 14px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .note-item {
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .note-item p {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .file-button {
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .error {
+      color: var(--red);
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      max-width: calc(100% - 28px);
+      padding: 12px 20px;
+      border-radius: 8px;
+      background: var(--red);
+      color: white;
+      text-align: center;
+    }
+
+    #toast:empty {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        font-size: 17px;
+      }
+
+      header {
+        padding: 20px 15px;
+      }
+
+      .brand {
+        gap: 10px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      .seal {
+        font-size: 28px;
+        padding: 0 10px;
+      }
+
+      .brand-subtitle {
+        font-size: 17px;
+      }
+
+      #accountButton {
+        padding: 7px 10px;
+        font-size: 14px;
+      }
+
+      nav {
+        gap: 5px;
+        padding: 10px 6px;
+      }
+
+      nav button {
+        padding: 8px 7px;
+        font-size: 15px;
+      }
+
+      main {
+        padding: 20px 15px 35px;
+      }
+
+      h2 {
+        font-size: 27px;
+      }
+
+      .results {
+        grid-template-columns: 1fr;
+      }
+
+      .search-row {
+        flex-wrap: wrap;
+      }
+
+      .search-row input {
+        flex-basis: 100%;
+      }
+
+      .detail-header h2 {
+        font-size: 30px;
+      }
+
+      dialog {
+        padding: 20px;
+      }
+    }
+    #externalLinks {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+#externalLinks a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 11px 20px;
+  border: 1px solid var(--brown);
+  border-radius: 8px;
+  background: var(--brown);
+  color: white;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+#externalLinks a:hover {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+@media (max-width: 600px) {
+  #externalLinks a {
+    width: 100%;
+    max-width: 360px;
+  }
+}
+  </style>
+
 </head>
+
 <body>
 
-    <header>
-        <div id="userBadge" class="user-badge" style="display: none;">👤 <span id="userNameDisplay"></span></div>
+  <header>
+    <div class="brand">
+      <span class="seal han" lang="zh-Hant">律</span>
+
+      <div>
         <h1>Từ điển Luật học</h1>
-        <div class="chinese-title">佛律辭典</div>
-    </header>
-
-    <div class="nav-links">
-        <a href="https://www.youtube.com/@Lu%E1%BA%ADtVi%E1%BB%87nCh%C3%B9aHu%E1%BB%87Nghi%C3%AAm" target="_blank" class="btn">📺 Kênh YouTube Luật viện Huệ Nghiêm</a>
-        <a href="https://www.budsas.org/uni/index.htm" target="_blank" class="btn">📚 Thư viện Luật tạng Ebook</a>
-        <button type="button" class="btn" onclick="openNotebookModal()">📖 Sổ tay cá nhân</button>
-        <button type="button" class="btn" onclick="openFlashcardModal()">💡 Ôn tập Flashcard</button>
+        <div class="brand-subtitle han" lang="zh-Hant">
+          佛律辭典
+        </div>
+      </div>
     </div>
 
-    <div class="main-container">
-        <!-- Cột Tra cứu thông minh -->
+    <button id="accountButton">Tài khoản</button>
+  </header>
+
+  <nav aria-label="Điều hướng chính">
+    <button data-page="terms" class="active">⌕ Tra cứu</button>
+    <button data-page="rules">📜 Học giới</button>
+    <button data-page="practice">☸ Pháp hành</button>
+    <button id="notebookButton">📖 Sổ tay</button>
+  
+  </nav>
+  <div style="
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid #E1D5C5;
+">
+  <a
+    href="https://www.youtube.com/@Lu%E1%BA%ADtVi%E1%BB%87nCh%C3%B9aHu%E1%BB%87Nghi%C3%AAm"
+    target="_blank"
+    rel="noopener noreferrer"
+    style="
+      display: inline-block;
+      padding: 12px 22px;
+      background: #8B5A2B;
+      color: white;
+      border: 1px solid #8B5A2B;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      font-family: 'Times New Roman', serif;
+      font-size: 17px;
+      cursor: pointer;
+    "
+  >
+    ▶ YouTube Luật viện Huệ Nghiêm
+  </a>
+
+  <a
+    href="https://drive.google.com/drive/folders/1OhcpnhNo4t_usmBrR59dTenbetjppVz8?usp=drive_link"
+    target="_blank"
+    rel="noopener noreferrer"
+    style="
+      display: inline-block;
+      padding: 12px 22px;
+      background: #8B5A2B;
+      color: white;
+      border: 1px solid #8B5A2B;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      font-family: 'Times New Roman', serif;
+      font-size: 17px;
+      cursor: pointer;
+    "
+  >
+    📚 Tủ sách Luật học
+  </a>
+</div>
+
+  <main>
+    <section id="listView">
+      <div class="intro">
+        <div class="eyebrow">
+          HỌC LUẬT · HIỂU NGHĨA · THỰC HÀNH
+        </div>
+        <h2 id="pageTitle">Tra cứu thuật ngữ</h2>
+        <p>毘尼藏住，佛法久住.</p>
+      </div>
+      <label for="searchInput">Từ khóa tra cứu</label>
+
+      <div id="searchView" class="view-section active">
         <div class="card">
-            <input type="text" id="searchInput" class="search-box" placeholder="Gõ không dấu, viết liền (vd: yetma, baladi, tangtan)...">
-            <div class="search-hint">💡 Tìm kiếm thông minh: Không cần đúng chính tả tuyệt đối, hệ thống tự động nhận diện.</div>
-            <div id="resultsList" class="results-list">Đang tải dữ liệu trực tuyến...</div>
-        </div>
-
-        <!-- Cột Chi tiết thuật ngữ & Ghi chú -->
-        <div class="card detail-view" id="detailView">
-            <h3>Chi tiết thuật ngữ</h3>
-            <p style="color: #666;">Chọn một từ bên cạnh để xem nội dung và ghi chú.</p>
+            <input type="text" id="searchInput" class="search-box" placeholder="Gõ từ khóa, không dấu (yetma) hoặc phân loại...">
+            <div class="search-hint">💡 Nhấp vào từ gợi ý để mở trang nội dung riêng biệt.</div>
+            <div id="resultsList" class="results-list">Đang tải dữ liệu từ điển...</div>
         </div>
     </div>
+        >
+        <button id="refreshButton">↻ Cập nhật</button>
+      </div>
 
-    <!-- Modal Đăng ký người dùng lần đầu -->
-    <div id="registerModal" class="modal" style="display: flex;">
-        <div class="modal-content" style="max-width: 400px; text-align: center;">
-            <h2 style="color: var(--accent-red); margin-top: 0;">👋 Chào mừng đến với Từ Điển Luật Học</h2>
-            <p>Vui lòng nhập tên của bạn để thiết lập sổ tay cá nhân (chỉ đăng ký 1 lần duy nhất):</p>
-            <input type="text" id="regNameInput" class="search-box" placeholder="Nhập tên của bạn...">
-            <button type="button" class="btn" style="width: 100%; margin-top: 10px;" onclick="registerUser()">Bắt đầu sử dụng</button>
-        </div>
+      <div id="categoryChips" class="chips"></div>
+
+      <p
+        id="dataStatus"
+        class="status"
+        role="status"
+        aria-live="polite"
+      ></p>
+
+      <div id="results" class="results"></div>
+
+      <button id="loadMore" hidden>Xem thêm</button>
+    </section>
+
+    <article id="detailView" tabindex="-1" hidden></article>
+  </main>
+
+  <footer>
+    <div id="externalLinks"></div>
+
+    <p>
+      Dự án phát triển Luật học Phật giáo
+    </p>
+  </footer>
+
+  <!-- Đăng nhập mô phỏng -->
+  <dialog id="authDialog">
+  <form id="authForm">
+    <div class="modal-header">
+      <h2 id="accountDialogTitle">Chào mừng bạn</h2>
+
+      <button
+        type="button"
+        id="closeAuth"
+        aria-label="Đóng"
+      >✕</button>
     </div>
 
-    <!-- Modal Sổ tay cá nhân -->
-    <div id="notebookModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('notebookModal')">&times;</span>
-            <h2 style="color: var(--accent-red); margin-top: 0;">📖 Sổ tay cá nhân & Ghi chú</h2>
-            <div style="margin-bottom: 15px;">
-                <button type="button" class="btn" style="background-color: #2E7D32;" onclick="exportNotebookText()">📥 Tải xuống Sổ tay (.txt)</button>
-            </div>
-            <div id="notebookContent"></div>
-        </div>
+    <p>
+      Nhập tên và số điện thoại để tạo sổ tay học tập.
+      Ứng dụng sẽ ghi nhớ thông tin trên trình duyệt này.
+    </p>
+
+    <label for="nameInput">Tên hiển thị</label>
+
+    <input
+      id="nameInput"
+      type="text"
+      autocomplete="name"
+      placeholder="Nhập tên của bạn"
+      maxlength="80"
+      required
+    >
+
+    <label for="phoneInput">Số điện thoại</label>
+
+    <input
+      id="phoneInput"
+      type="tel"
+      autocomplete="tel"
+      placeholder="0901234567"
+      required
+    >
+
+    <p id="authError" class="error" role="alert"></p>
+
+    <div class="actions">
+      <button type="submit" class="primary">
+        Lưu và bắt đầu
+      </button>
+
+      <button type="button" id="guestButton">
+        Để sau
+      </button>
     </div>
 
-    <!-- Modal Flashcard Ôn tập sáng tạo -->
-    <div id="flashcardModal" class="modal">
-        <div class="modal-content" style="text-align: center;">
-            <span class="close-btn" onclick="closeModal('flashcardModal')">&times;</span>
-            <h2 style="color: var(--accent-red); margin-top: 0;">💡 Thẻ học thông minh (Flashcard)</h2>
-            <div id="flashcardContainer" style="margin: 20px 0; min-height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #FFF; border: 1px solid var(--border-color); border-radius: 8px; padding: 20px;">
-            </div>
-            <button type="button" class="btn" onclick="nextFlashcard()">Từ tiếp theo ➡️</button>
-        </div>
+    <p class="small">
+      Thông tin và ghi chú được lưu trên trình duyệt này.
+      Đây là hồ sơ cục bộ, chưa có xác thực số điện thoại
+      hoặc đồng bộ giữa các thiết bị.
+    </p>
+  </form>
+</dialog>
+
+  <!-- Sổ tay tổng hợp -->
+  <dialog id="notebookDialog">
+    <div class="modal-header">
+      <h2>Sổ tay cá nhân</h2>
+      <button id="closeNotebook" aria-label="Đóng">✕</button>
     </div>
 
-    <footer>
-        Tỳ ni tạng trụ - Phật pháp cửu trụ <span class="footer-zh">毘尼藏住，佛法久住</span>
-    </footer>
+    <p class="small">
+      Xuất PDF để đọc hoặc in. Dùng bản sao JSON để chuyển ghi chú
+      sang trình duyệt hoặc thiết bị khác.
+    </p>
 
-    <script>
-        let dictionaryData = [];
-        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQpIZb1-EznVdfabsReZmigZbgnSRF1OsN05jcX4n9wSLYRchUM-xRC8nmiFeFR-eEAsBPkb-UwK20Z/pub?output=csv';
+    <div class="actions">
+      <button id="exportTxtButton">📥 Tải sổ tay PDF</button>
+      <button id="backupButton">Sao lưu JSON</button>
 
-        async function loadGoogleSheetData() {
-            try {
-                const response = await fetch(csvUrl);
-                const dataText = await response.text();
-                
-                const rows = dataText.split('\n');
-                dictionaryData = [];
+      <label class="file-button">
+        Nhập bản sao JSON
+        <input
+          id="importInput"
+          type="file"
+          accept=".json,application/json"
+          hidden
+        >
+      </label>
+    </div>
 
-                for (let i = 1; i < rows.length; i++) {
-                    const row = rows[i].trim();
-                    if (!row) continue;
-                    
-                    const cols = [];
-                    let inQuotes = false;
-                    let currentCol = '';
-                    for (let char of row) {
-                        if (char === '"') {
-                            inQuotes = !inQuotes;
-                        } else if (char === ',' && !inQuotes) {
-                            cols.push(currentCol.trim());
-                            currentCol = '';
-                        } else {
-                            currentCol += char;
-                        }
-                    }
-                    cols.push(currentCol.trim());
+    <div id="notebookList"></div>
+  </dialog>
 
-                    if (cols.length >= 4) {
-                        dictionaryData.push({
-                            id: i,
-                            term: cols[1] ? cols[1].replace(/^"|"$/g, '') : '',
-                            china: cols[2] ? cols[2].replace(/^"|"$/g, '') : '',
-                            meaning: cols[3] ? cols[3].replace(/^"|"$/g, '') : '',
-                            category: cols[4] ? cols[4].replace(/^"|"$/g, '') : '',
-                            pali: cols[5] ? cols[5].replace(/^"|"$/g, '') : '',
-                            sanskrit: cols[6] ? cols[6].replace(/^"|"$/g, '') : '',
-                            explanation: cols[7] ? cols[7].replace(/^"|"$/g, '') : '',
-                            original: cols[8] ? cols[8].replace(/^"|"$/g, '') : '',
-                            sourceText: cols[9] ? cols[9].replace(/^"|"$/g, '') : ''
-                        });
-                    }
-                }
+  <div id="toast" role="status" aria-live="polite"></div>
 
-                dictionaryData = dictionaryData.filter(item => item.term !== '');
-                displayResults(dictionaryData);
-                if (dictionaryData.length > 0) showDetail(dictionaryData[0]);
+  <script>
+    "use strict";
 
-            } catch (error) {
-                console.warn("Dùng dữ liệu dự phòng cục bộ do hạn chế mạng...");
-                dictionaryData = [
-                    { id: 1, term: "Ba-la-di", china: "波羅夷", meaning: "Tội cực ác, đứt đầu, mất bản thể...", category: "Ngũ thiên (Tội danh)", pali: "Pārājika", sanskrit: "Pārājika", explanation: "波羅夷是極重罪...", original: "《四分律名義標釋》", sourceText: "波羅市迦者..." },
-                    { id: 2, term: "Yết-ma", china: "羯磨", meaning: "Nghi thức tác pháp, biểu quyết...", category: "Tăng sự", pali: "Kamma", sanskrit: "Karma", explanation: "羯磨意為辦事或作法...", original: "《四分律名義標釋》", sourceText: "此翻為事..." }
-                ];
-                displayResults(dictionaryData);
-                if (dictionaryData.length > 0) showDetail(dictionaryData[0]);
-            }
+    /* =========================================================
+       1. CẤU HÌNH NGUỒN DỮ LIỆU VÀ LIÊN KẾT
+       ========================================================= */
+
+    const CONFIG = {
+      sources: {
+        terms:
+          "https://docs.google.com/spreadsheets/d/e/2PACX-1vQpIZb1-EznVdfabsReZmigZbgnSRF1OsN05jcX4n9wSLYRchUM-xRC8nmiFeFR-eEAsBPkb-UwK20Z/pub?output=csv",
+
+        rules:
+          "https://docs.google.com/spreadsheets/d/e/2PACX-1vQaT7qGHzF8ZQ3GpeYeyLRiVO-D3lCD0kuVZ4O8smwExhgrAyachxhQEctSaUYMqDVWoEzaB94DPAzY/pub?output=csv",
+
+        // Điền URL CSV của bảng Pháp hành khi có.
+        practice: ""
+      },
+
+      // Điền URL thật để hiện các liên kết ở cuối trang.
+      youtube: "https://www.youtube.com/@Lu%E1%BA%ADtVi%E1%BB%87nCh%C3%B9aHu%E1%BB%87Nghi%C3%AAm",
+      ebook: "https://drive.google.com/drive/folders/1OhcpnhNo4t_usmBrR59dTenbetjppVz8?usp=drive_link",
+
+
+      // Tự kiểm tra cập nhật mỗi 5 phút khi đang mở ứng dụng.
+      refreshMilliseconds: 5 * 60 * 1000
+    };
+
+    /* =========================================================
+       2. TÊN CỘT GOOGLE SHEETS
+       Có thể thêm tên tương ứng vào từng nhóm bên dưới.
+       ========================================================= */
+
+    const FIELD_NAMES = {
+      id: ["ID", "Mã"],
+
+      title: [
+        "Term",
+        "Tên học giới",
+        "Tên pháp hành",
+        "Thuật ngữ",
+        "Tên",
+        "Tên thuật ngữ"
+      ],
+
+      chinese: [
+        "China term",
+        "Chinese term",
+        "Chữ Hán",
+        "中文",
+        "Tên tiếng Trung"
+      ],
+
+      category: [
+        "Category",
+        "Phân loại",
+        "Nhóm",
+        "Đối tượng"
+      ],
+
+      pali: ["Pali", "Pāli"],
+
+      sanskrit: ["Sanskrit"],
+
+      meaning: ["Meaning", "Ý nghĩa"],
+
+      plainChinese: [
+        "中文白話解釋",
+        "中文白話",
+        "中文白话解释"
+      ],
+
+      original: [
+        "原文",
+        "Chánh văn",
+        "Chính văn"
+      ],
+
+      source: [
+        "原來資料",
+        "資料來源",
+        "Nguồn",
+        "Nguồn tài liệu",
+        "Nguồn trích dẫn"
+      ],
+
+      rule: ["Học giới", "Điều học"],
+
+      offense: ["Phạm tướng"],
+
+      exception: ["Khai duyên"],
+
+      related: ["Liên hệ"],
+
+      content: ["Nội dung", "Content"],
+
+      link: ["Link", "Liên kết", "URL"]
+    };
+
+    const PAGE_TITLES = {
+      terms: "Tra cứu thuật ngữ",
+      rules: "Tra cứu học giới",
+      practice: "Tra cứu pháp hành"
+    };
+
+    const CATEGORIES = {
+      terms: [],
+
+      rules: [
+        "Giới Tỳ kheo",
+        "Tỳ kheo ni",
+        "Thức xoa ma na",
+        "Sa di",
+        "Sa di ni"
+      ],
+
+      practice: [
+        "Nghi thức tụng giới",
+        "Nghi thức Yết ma",
+        "Sám hối"
+      ]
+    };
+
+    /* =========================================================
+       3. TRẠNG THÁI ỨNG DỤNG
+       ========================================================= */
+
+    const $ = id => document.getElementById(id);
+
+    const database = {
+      terms: [],
+      rules: [],
+      practice: []
+    };
+
+    const loading = {};
+    const dataMessages = {};
+
+    const searchValues = {
+      terms: "",
+      rules: "",
+      practice: ""
+    };
+
+    let currentPage = "terms";
+    let currentCategory = "";
+    let currentItem = null;
+    let displayLimit = 40;
+    let toastTimer;
+
+    let currentUser = readStorage("vinaya:user", "");
+
+    if (typeof currentUser !== "string") {
+      currentUser = "";
+    }
+
+    let otpState = null;
+
+    /* =========================================================
+       4. HÀM TIỆN ÍCH
+       ========================================================= */
+
+    function createElement(tag, text, className) {
+      const element = document.createElement(tag);
+
+      if (text !== undefined) {
+        element.textContent = text;
+      }
+
+      if (className) {
+        element.className = className;
+      }
+
+      return element;
+    }
+
+    function showToast(message) {
+      $("toast").textContent = message;
+
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(() => {
+        $("toast").textContent = "";
+      }, 4500);
+    }
+
+    function readStorage(key, fallback) {
+      try {
+        const value = localStorage.getItem(key);
+        return value === null ? fallback : JSON.parse(value);
+      } catch {
+        return fallback;
+      }
+    }
+
+    function saveStorage(key, value, quiet = false) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+      } catch {
+        if (!quiet) {
+          showToast(
+            "Không thể lưu dữ liệu. Kiểm tra dung lượng và quyền lưu trữ của trình duyệt."
+          );
         }
 
-        // Hàm chuẩn hóa chuỗi tối ưu (loại bỏ dấu, khoảng trắng, dấu gạch ngang)
-        function cleanString(str) {
-            if (!str) return '';
-            return str.normalize('NFD')
-                      .replace(/[\u0300-\u036f]/g, '')
-                      .replace(/đ/g, 'd').replace(/Đ/g, 'D')
-                      .toLowerCase()
-                      .replace(/[^a-z0-9\u4e00-\u9fa5]/g, ''); // Giữ lại chữ cái, số và chữ Hán
+        return false;
+      }
+    }
+
+    function cleanString(value) {
+      return String(value ?? "")
+        .normalize("NFD")
+        .replace(/\p{M}/gu, "")
+        .replace(/[đĐ]/g, "d")
+        .toLowerCase()
+        .replace(/[^\p{L}\p{N}]/gu, "");
+    }
+
+    function getField(row, fieldName) {
+      const alternatives = FIELD_NAMES[fieldName] || [fieldName];
+
+      for (const alternative of alternatives) {
+        const matchingHeader = Object.keys(row).find(
+          header => cleanString(header) === cleanString(alternative)
+        );
+
+        if (matchingHeader && row[matchingHeader]) {
+          return row[matchingHeader];
+        }
+      }
+
+      return "";
+    }
+
+    function safeURL(value) {
+      try {
+        const url = new URL(value);
+
+        return ["http:", "https:"].includes(url.protocol)
+          ? url.href
+          : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function appendLink(parent, label, value) {
+      const url = safeURL(value);
+
+      if (!url) return;
+
+      const link = createElement("a", label);
+
+      link.href = url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+
+      parent.append(link);
+    }
+
+    /* =========================================================
+       5. ĐỌC CSV: HỖ TRỢ DẤU PHẨY VÀ XUỐNG DÒNG TRONG Ô
+       ========================================================= */
+
+    function parseCSV(text) {
+  /*
+   * Đọc CSV của hai bảng:
+   * - Tự tìm dòng tên cột.
+   * - Bỏ dòng tiêu đề và dòng trống.
+   * - Nhận diện nhóm học giới.
+   * - Giữ dấu phẩy, xuống dòng và ngoặc kép trong ô.
+   */
+
+  text = String(text || "").replace(/^\uFEFF/, "");
+
+  if (/^\s*</.test(text)) {
+    throw new Error(
+      "Google trả về trang HTML thay vì CSV. Hãy kiểm tra quyền xuất bản bảng."
+    );
+  }
+
+  const matrix = [];
+
+  let row = [];
+  let cell = "";
+  let insideQuotes = false;
+
+  function finishRow() {
+    row.push(cell);
+
+    if (row.some(value => value.trim() !== "")) {
+      matrix.push(row);
+    }
+
+    row = [];
+    cell = "";
+  }
+
+  // Bước 1: Tách CSV thành các dòng và ô.
+  for (let index = 0; index < text.length; index++) {
+    const character = text[index];
+
+    if (character === '"') {
+      if (insideQuotes && text[index + 1] === '"') {
+        cell += '"';
+        index++;
+      } else if (insideQuotes || cell === "") {
+        insideQuotes = !insideQuotes;
+      } else {
+        cell += character;
+      }
+
+      continue;
+    }
+
+    if (character === "," && !insideQuotes) {
+      row.push(cell);
+      cell = "";
+      continue;
+    }
+
+    if (
+      (character === "\n" || character === "\r") &&
+      !insideQuotes
+    ) {
+      if (character === "\r" && text[index + 1] === "\n") {
+        index++;
+      }
+
+      finishRow();
+      continue;
+    }
+
+    cell += character;
+  }
+
+  if (insideQuotes) {
+    throw new Error("CSV có dấu ngoặc kép chưa đóng.");
+  }
+
+  finishRow();
+
+  if (!matrix.length) {
+    return [];
+  }
+
+  // Bước 2: Tìm đúng dòng tên cột, không mặc định dòng đầu.
+  const headerIndex = matrix.findIndex(values => {
+    const names = values.map(cleanString);
+
+    const isDictionary =
+      names.includes("term") &&
+      (
+        names.includes("meaning") ||
+        names.includes("chinaterm")
+      );
+
+    const isRules =
+      names.includes("hocgioi") &&
+      (
+        names.includes("chanhvan") ||
+        names.includes("chinhvan") ||
+        names.includes("phamtuong")
+      );
+
+    const isPractice =
+      (
+        names.includes("tenphaphanh") ||
+        names.includes("ten")
+      ) &&
+      names.includes("noidung");
+
+    return isDictionary || isRules || isPractice;
+  });
+
+  if (headerIndex === -1) {
+    throw new Error(
+      "Không tìm thấy dòng tên cột. Bảng từ điển cần Term và Meaning; " +
+      "bảng học giới cần Học giới và Chánh văn."
+    );
+  }
+
+  const headers = matrix[headerIndex].map(
+    value => value.trim()
+  );
+
+  const normalizedHeaders = headers.map(cleanString);
+
+  const isRulesTable =
+    normalizedHeaders.includes("hocgioi") &&
+    (
+      normalizedHeaders.includes("chanhvan") ||
+      normalizedHeaders.includes("chinhvan") ||
+      normalizedHeaders.includes("phamtuong")
+    );
+
+  const titleIndex = normalizedHeaders.findIndex(
+    name => [
+      "term",
+      "tenhocgioi",
+      "tenphaphanh",
+      "thuatngu",
+      "ten",
+      "hocgioi"
+    ].includes(name)
+  );
+
+  const serialIndex = normalizedHeaders.findIndex(
+    name => ["stt", "sothutu"].includes(name)
+  );
+
+  const categoryIndex = normalizedHeaders.findIndex(
+    name => [
+      "category",
+      "phanloai",
+      "nhom",
+      "doituong"
+    ].includes(name)
+  );
+
+  const contentIndexes = normalizedHeaders
+    .map((name, index) => (
+      [
+        "chanhvan",
+        "chinhvan",
+        "phamtuong",
+        "kha iduyen".replace(/\s/g, ""),
+        "khai duyen".replace(/\s/g, ""),
+        "noidung"
+      ].includes(name)
+        ? index
+        : -1
+    ))
+    .filter(index => index >= 0);
+
+  // Nhận diện đối tượng từ tiêu đề trước dòng tên cột.
+  function detectAudience(value) {
+    const text = cleanString(value);
+
+    // Kiểm tra nhóm dài trước để không lẫn Tỳ kheo với Tỳ kheo ni.
+    if (text.includes("thucxoamana")) return "Thức xoa ma na";
+    if (text.includes("tykheoni")) return "Tỳ kheo ni";
+    if (text.includes("tykheo")) return "Giới Tỳ kheo";
+    if (text.includes("sad ini".replace(/\s/g, ""))) return "Sa di ni";
+    if (text.includes("sadi")) return "Sa di";
+
+    return "";
+  }
+
+  let currentAudience = "";
+
+  for (const headingRow of matrix.slice(0, headerIndex)) {
+    const detected = detectAudience(headingRow.join(" "));
+
+    if (detected) {
+      currentAudience = detected;
+    }
+  }
+
+  let currentGroup = "";
+  const records = [];
+
+  // Bước 3: Chỉ chuyển các dòng có nội dung thành mục từ.
+  for (const values of matrix.slice(headerIndex + 1)) {
+    const title = (values[titleIndex] || "").trim();
+
+    if (!title) {
+      continue;
+    }
+
+    // Bỏ dòng tên cột nếu được lặp lại giữa bảng.
+    if (
+      normalizedHeaders.every(
+        (name, index) =>
+          !name || cleanString(values[index] || "") === name
+      )
+    ) {
+      continue;
+    }
+
+    const record = {};
+
+    headers.forEach((header, index) => {
+      // Bỏ các cột không có tên.
+      if (header) {
+        record[header] = (values[index] || "").trim();
+      }
+    });
+
+    if (isRulesTable) {
+      const hasContent = contentIndexes.some(
+        index => (values[index] || "").trim() !== ""
+      );
+
+      // Dòng không có Chánh văn/Phạm tướng/Khai duyên
+      // được xem là tiêu đề hoặc tên nhóm.
+      if (!hasContent) {
+        const detected = detectAudience(title);
+
+        if (detected) {
+          currentAudience = detected;
         }
 
-        const registerModal = document.getElementById('registerModal');
-        const userBadge = document.getElementById('userBadge');
-        const userNameDisplay = document.getElementById('userNameDisplay');
-        const regNameInput = document.getElementById('regNameInput');
+        currentGroup = title;
+        continue;
+      }
 
-        function checkUser() {
-            const savedUser = localStorage.getItem('tudien_username');
-            if (savedUser) {
-                registerModal.style.display = 'none';
-                userNameDisplay.innerText = savedUser;
-                userBadge.style.display = 'block';
-            } else {
-                registerModal.style.display = 'flex';
-            }
+      const existingCategory =
+        categoryIndex >= 0
+          ? (values[categoryIndex] || "").trim()
+          : "";
+
+      const audience =
+        existingCategory ||
+        detectAudience(title) ||
+        currentAudience;
+
+      // Thêm tên chuẩn để phần giao diện cũ đọc được.
+      record.Term = title;
+      record.Category = audience;
+      record["Nhóm học giới"] = currentGroup;
+
+      // Giữ ID gốc nếu có; nếu chưa có thì dùng STT của bảng.
+      const idHeader = headers.find(
+        header => cleanString(header) === "id"
+      );
+
+      const existingID = idHeader
+        ? record[idHeader]
+        : "";
+
+      const serial = serialIndex >= 0
+        ? (values[serialIndex] || "").trim()
+        : "";
+
+      if (!existingID && serial) {
+        record.ID = [
+          cleanString(audience) || "hocgioi",
+          serial
+        ].join("-");
+      }
+    }
+
+    records.push(record);
+  }
+
+  return records;
+}
+
+    function buildItems(rows, type) {
+      const usedIDs = new Set();
+
+      return rows.map(row => {
+        const title =
+          getField(row, "title") ||
+          getField(row, "rule");
+
+        if (!title) {
+          throw new Error(
+            "Không tìm thấy cột tên. Dùng Term, Tên học giới hoặc Tên pháp hành."
+          );
         }
 
-        function registerUser() {
-            const name = regNameInput.value.trim();
-            if (!name) {
-                alert('Vui lòng nhập tên của bạn!');
-                return;
-            }
-            localStorage.setItem('tudien_username', name);
-            checkUser();
+        const chinese = getField(row, "chinese");
+        const category = getField(row, "category");
+
+        const identity =
+          getField(row, "id") ||
+          [title, chinese, category].join("|");
+
+        const id = type + ":" + identity;
+
+        if (usedIDs.has(id)) {
+          throw new Error(
+            "ID bị trùng: " + identity + ". Mỗi dòng cần ID riêng."
+          );
         }
 
-        regNameInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                registerUser();
-            }
+        usedIDs.add(id);
+
+        return {
+          id,
+          type,
+          title,
+          chinese,
+          category,
+          row
+        };
+      });
+    }
+
+    /* =========================================================
+       6. TÌM KIẾM KHÔNG DẤU, VIẾT LIỀN, ĐỒNG NGHĨA
+       ========================================================= */
+
+    const SYNONYM_GROUPS = [
+      ["yetma", "羯磨", "羯摩", "jiemo"],
+      ["baladi", "波羅夷", "parajika"],
+      ["tangtan", "僧殘", "sanghadisesa"],
+      ["tykheoni", "比丘尼", "bhikkhuni"],
+      ["tykheo", "比丘", "bhikkhu"],
+      ["sad ini", "沙彌尼"],
+      ["sadi", "沙彌"],
+      ["dotcatla", "dotkietla", "突吉羅"],
+      ["botat", "布薩", "uposatha"],
+      ["tutu", "自恣", "pavarana"],
+      ["ancu", "安居"]
+    ].map(group => group.map(cleanString));
+
+    function canonicalText(value) {
+      let text = cleanString(value);
+
+      for (const group of SYNONYM_GROUPS) {
+        const aliases = [...group].sort(
+          (a, b) => b.length - a.length
+        );
+
+        for (const alias of aliases) {
+          if (text.includes(alias)) {
+            text = text.split(alias).join(group[0]);
+            break;
+          }
+        }
+      }
+
+      return text;
+    }
+
+    function editDistance(first, second) {
+      if (Math.abs(first.length - second.length) > 2) {
+        return 99;
+      }
+
+      let previous = Array.from(
+        { length: second.length + 1 },
+        (_, index) => index
+      );
+
+      for (let i = 0; i < first.length; i++) {
+        const next = [i + 1];
+
+        for (let j = 0; j < second.length; j++) {
+          next[j + 1] = Math.min(
+            next[j] + 1,
+            previous[j + 1] + 1,
+            previous[j] + (first[i] === second[j] ? 0 : 1)
+          );
+        }
+
+        previous = next;
+      }
+
+      return previous[second.length];
+    }
+
+    // Chuẩn hóa văn bản nhưng giữ khoảng trắng để nhận biết từ.
+function searchWords(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[đĐ]/g, "d")
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// Chuyển "thứ ba", "thứ 3" về cùng dạng "thu 3".
+function normalizeOrdinalQuery(value) {
+  const text = searchWords(value);
+
+  const ordinalNumbers = {
+    "nhat": 1,
+    "mot": 1,
+    "hai": 2,
+    "ba": 3,
+    "tu": 4,
+    "bon": 4,
+    "nam": 5,
+    "sau": 6,
+    "bay": 7,
+    "tam": 8,
+    "chin": 9,
+    "muoi": 10,
+    "muoi mot": 11,
+    "muoi hai": 12,
+    "muoi ba": 13,
+    "muoi bon": 14,
+    "muoi tu": 14,
+    "muoi lam": 15,
+    "muoi nam": 15,
+    "muoi sau": 16,
+    "muoi bay": 17,
+    "muoi tam": 18,
+    "muoi chin": 19,
+    "hai muoi": 20
+  };
+
+  // Cụm dài được xét trước để "mười ba" không bị tách thành "mười".
+  const alternatives = Object.keys(ordinalNumbers)
+    .sort((first, second) => second.length - first.length)
+    .join("|");
+
+  const pattern = new RegExp(
+    "\\bthu\\s+(" + alternatives + ")(?=\\s|$)",
+    "g"
+  );
+
+  return text.replace(
+    pattern,
+    (_, words) => "thu " + ordinalNumbers[words]
+  );
+}
+
+function getOrdinalNumber(value) {
+  const normalized = normalizeOrdinalQuery(value);
+  const match = normalized.match(/\bthu\s*(\d+)\b/);
+
+  return match ? Number(match[1]) : null;
+}
+
+function searchScore(item, query) {
+  if (!query.trim()) {
+    return 1;
+  }
+
+  // Chuẩn hóa CẢ câu tìm kiếm và tiêu đề dữ liệu.
+  const normalizedQuery = normalizeOrdinalQuery(query);
+  const normalizedTitle = normalizeOrdinalQuery(item.title);
+
+  const requestedNumber = getOrdinalNumber(query);
+  const itemNumber = getOrdinalNumber(item.title);
+
+  // Khi người dùng yêu cầu "thứ 3", không trả về "thứ 13".
+  if (
+    requestedNumber !== null &&
+    requestedNumber !== itemNumber
+  ) {
+    return 0;
+  }
+
+  const queryText = canonicalText(normalizedQuery);
+  const titleText = canonicalText(normalizedTitle);
+  const chineseText = canonicalText(item.chinese);
+
+  if (
+    titleText === queryText ||
+    chineseText === queryText
+  ) {
+    return 100;
+  }
+
+  if ((titleText + chineseText).includes(queryText)) {
+    return 80;
+  }
+
+  // Thêm phân loại để tìm được "giới tỳ kheo",
+  // ngay cả khi tiêu đề chỉ ghi "Ba la di thứ ba".
+  const headingText = canonicalText(
+    normalizeOrdinalQuery(
+      [
+        item.title,
+        item.chinese,
+        item.category,
+        getField(item.row, "category")
+      ].join(" ")
+    )
+  );
+
+  const ignoredWords = new Set([
+    "gioi",
+    "thu",
+    "noi",
+    "dung",
+    "dieu",
+    "hoc",
+    "nghi",
+    "thuc"
+  ]);
+
+  const searchTokens = normalizedQuery
+    .split(/\s+/)
+    .map(canonicalText)
+    .filter(token => {
+      if (!token || ignoredWords.has(token)) {
+        return false;
+      }
+
+      // Số thứ tự đã được kiểm tra riêng ở trên.
+      if (
+        requestedNumber !== null &&
+        /^\d+$/.test(token)
+      ) {
+        return false;
+      }
+
+      return true;
+    });
+
+  // Ưu tiên kết quả khớp tiêu đề và phân loại.
+  if (
+    searchTokens.length > 0 &&
+    searchTokens.every(token => headingText.includes(token))
+  ) {
+    return 70;
+  }
+
+  // Cho phép tìm riêng bằng số thứ tự.
+  if (
+    requestedNumber !== null &&
+    searchTokens.length === 0
+  ) {
+    return 65;
+  }
+
+  const fullText = canonicalText(
+    normalizeOrdinalQuery(
+      Object.values(item.row).join(" ")
+    )
+  );
+
+  if (fullText.includes(queryText)) {
+    return 50;
+  }
+
+  if (
+    searchTokens.length > 0 &&
+    searchTokens.every(token => fullText.includes(token))
+  ) {
+    return 40;
+  }
+
+  // Dung sai một vài lỗi gõ cho tên thuật ngữ.
+  if (queryText.length >= 4 && requestedNumber === null) {
+    const permittedErrors = Math.min(
+      2,
+      Math.floor(queryText.length / 4)
+    );
+
+    if (
+      editDistance(titleText, queryText) <= permittedErrors
+    ) {
+      return 20;
+    }
+  }
+
+  return 0;
+}
+
+    function categoryMatches(item) {
+      if (!currentCategory) return true;
+
+      const actual = cleanString(item.category);
+
+      const expected = cleanString(
+        currentCategory.replace(/^Giới\s+/i, "")
+      );
+
+      return (
+        actual === expected ||
+        actual === "gioi" + expected
+      );
+    }
+
+    /* =========================================================
+       7. TẢI DỮ LIỆU VÀ TỰ CẬP NHẬT
+       ========================================================= */
+
+    async function loadData(type) {
+      if (loading[type]) return;
+
+      const source = CONFIG.sources[type];
+
+      if (!source) {
+        dataMessages[type] =
+          "Chưa có nguồn dữ liệu. Điền URL CSV trong CONFIG.sources.practice.";
+
+        renderList();
+        return;
+      }
+
+      loading[type] = true;
+      dataMessages[type] = "Đang tải dữ liệu…";
+
+      const cached = readStorage("vinaya:cache:" + type, null);
+
+      if (!database[type].length && cached?.rows) {
+        try {
+          database[type] = buildItems(cached.rows, type);
+        } catch {
+          // Bỏ qua bản lưu không còn phù hợp.
+        }
+      }
+
+      renderList();
+
+      const controller = new AbortController();
+
+      const timeout = setTimeout(
+        () => controller.abort(),
+        20000
+      );
+
+      try {
+        const response = await fetch(source, {
+          cache: "no-store",
+          signal: controller.signal
         });
 
-        const searchInput = document.getElementById('searchInput');
-        const resultsList = document.getElementById('resultsList');
-        const detailView = document.getElementById('detailView');
-
-        function displayResults(items) {
-            resultsList.innerHTML = '';
-            if (items.length === 0) {
-                resultsList.innerHTML = '<div style="padding: 15px; text-align: center; color: #666;">Không tìm thấy thuật ngữ hoặc phân loại phù hợp.</div>';
-                return;
-            }
-
-            items.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'term-item';
-                div.innerHTML = `
-                    <span class="term-title">${item.term}</span>
-                    <span class="chinese-text">(${item.china})</span>
-                    <div style="font-size: 0.85rem; color: #666; margin-top: 3px;">Phân loại: ${item.category}</div>
-                `;
-                div.onclick = () => showDetail(item);
-                resultsList.appendChild(div);
-            });
+        if (!response.ok) {
+          throw new Error("HTTP " + response.status);
         }
 
-        function showDetail(item) {
-            const noteKey = `note_term_${item.term}`;
-            const currentNote = localStorage.getItem(noteKey) || '';
+        const text = await response.text();
+        const rows = parseCSV(text);
+        const items = buildItems(rows, type);
 
-            detailView.innerHTML = `
-                <h3>${item.term} <span class="china-font">(${item.china})</span></h3>
-                <div class="detail-row"><strong>Ý nghĩa:</strong> ${item.meaning}</div>
-                <div class="detail-row"><strong>Phân loại:</strong> ${item.category}</div>
-                <div class="detail-row"><strong>Pali / Sanskrit:</strong> ${item.pali} / ${item.sanskrit}</div>
-                <div class="detail-row"><strong>Giải thích (Bạch thoại):</strong> <span class="china-font">${item.explanation}</span></div>
-                <div class="detail-row"><strong>Nguyên liệu gốc:</strong> ${item.original}</div>
-                <div class="detail-row"><strong>Trích đoạn nguyên văn:</strong> <span class="china-font" style="background: #F7F1E5; padding: 4px; display: block; margin-top: 4px; border-radius: 4px;">${item.sourceText}</span></div>
-                
-                <div class="word-note-section">
-                    <strong>📝 Ghi chú cá nhân cho từ này:</strong>
-                    <textarea id="noteInput_${item.id}" placeholder="Nhập ghi chú của bạn vào đây...">${currentNote}</textarea>
-                    <button type="button" class="btn" style="padding: 6px 12px; font-size: 0.9rem; margin-top: 5px;" onclick="saveWordNote('${item.term}', ${item.id})">Lưu ghi chú từ này</button>
-                </div>
-            `;
+        database[type] = items;
+
+        saveStorage(
+          "vinaya:cache:" + type,
+          {
+            rows,
+            updated: new Date().toISOString()
+          },
+          true
+        );
+
+        dataMessages[type] =
+          "Cập nhật lúc " +
+          new Date().toLocaleTimeString("vi-VN");
+      } catch (error) {
+        const reason =
+          error.name === "AbortError"
+            ? "Kết nối quá thời gian chờ"
+            : error.message;
+
+        dataMessages[type] =
+          "Không tải được dữ liệu: " +
+          reason +
+          (database[type].length
+            ? " · Đang dùng bản đã lưu."
+            : " · Kiểm tra mạng và quyền công khai CSV.");
+      } finally {
+        clearTimeout(timeout);
+        loading[type] = false;
+        renderList();
+      }
+    }
+
+    /* =========================================================
+       8. DANH SÁCH VÀ ĐIỀU HƯỚNG
+       ========================================================= */
+
+    function renderList() {
+      if (currentItem) return;
+
+      $("pageTitle").textContent = PAGE_TITLES[currentPage];
+      $("searchInput").value = searchValues[currentPage];
+
+      document.querySelectorAll("[data-page]").forEach(button => {
+        const active = button.dataset.page === currentPage;
+
+        button.classList.toggle("active", active);
+
+        if (active) {
+          button.setAttribute("aria-current", "page");
+        } else {
+          button.removeAttribute("aria-current");
+        }
+      });
+
+      $("categoryChips").replaceChildren();
+
+      if (CATEGORIES[currentPage].length) {
+        const names = [
+          "Hiển thị tất cả",
+          ...CATEGORIES[currentPage]
+        ];
+
+        for (const name of names) {
+          const active =
+            name === "Hiển thị tất cả"
+              ? currentCategory === ""
+              : currentCategory === name;
+
+          const button = createElement(
+            "button",
+            name,
+            active ? "active" : ""
+          );
+
+          button.onclick = () => {
+            currentCategory =
+              name === "Hiển thị tất cả" ? "" : name;
+
+            displayLimit = 40;
+            renderList();
+          };
+
+          $("categoryChips").append(button);
+        }
+      }
+
+      const results = database[currentPage]
+        .filter(categoryMatches)
+        .map(item => ({
+          item,
+          score: searchScore(
+            item,
+            searchValues[currentPage]
+          )
+        }))
+        .filter(result => result.score > 0)
+        .sort(
+          (first, second) =>
+            second.score - first.score ||
+            first.item.title.localeCompare(
+              second.item.title,
+              "vi"
+            )
+        );
+
+      $("dataStatus").textContent =
+        (dataMessages[currentPage] || "") +
+        " · " +
+        results.length +
+        " kết quả";
+
+      $("refreshButton").disabled = !!loading[currentPage];
+      $("results").replaceChildren();
+
+      for (const result of results.slice(0, displayLimit)) {
+        const item = result.item;
+
+        const button = createElement(
+          "button",
+          undefined,
+          "result-card"
+        );
+
+        button.append(
+          createElement("strong", item.title),
+          createElement("span", item.chinese, "han"),
+          createElement(
+            "small",
+            item.category || "Chưa phân loại"
+          )
+        );
+
+        button.onclick = () => {
+          if (canLeaveDetail()) {
+            openDetail(item);
+          }
+        };
+
+        $("results").append(button);
+      }
+
+      if (!results.length && !loading[currentPage]) {
+        $("results").append(
+          createElement(
+            "p",
+            database[currentPage].length
+              ? "Chưa tìm thấy kết quả. Hãy thử từ khóa ngắn hơn."
+              : "Chưa có dữ liệu để hiển thị.",
+            "empty"
+          )
+        );
+      }
+
+      $("loadMore").hidden = results.length <= displayLimit;
+    }
+
+    function noteIsDirty() {
+      const input = $("personalNote");
+
+      return !!(
+        currentItem &&
+        input &&
+        input.value !== input.dataset.saved
+      );
+    }
+
+    function canLeaveDetail() {
+      return (
+        !noteIsDirty() ||
+        confirm(
+          "Ghi chú chưa được lưu. Bạn muốn bỏ thay đổi và rời trang?"
+        )
+      );
+    }
+
+    function showList() {
+      currentItem = null;
+
+      $("detailView").hidden = true;
+      $("listView").hidden = false;
+
+      renderList();
+      window.scrollTo(0, 0);
+    }
+
+    function changePage(type) {
+      if (!canLeaveDetail()) return;
+
+      currentPage = type;
+      currentCategory = "";
+      displayLimit = 40;
+
+      history.pushState(
+        { page: type },
+        "",
+        "#" + type
+      );
+
+      showList();
+
+      if (!database[type].length) {
+        loadData(type);
+      }
+    }
+
+    /* =========================================================
+       9. TRANG CHI TIẾT
+       ========================================================= */
+
+    function openDetail(item, updateHistory = true) {
+      currentItem = item;
+      currentPage = item.type;
+
+      if (updateHistory) {
+        history.pushState(
+          {
+            page: item.type,
+            id: item.id
+          },
+          "",
+          "#" + item.type + "/" + encodeURIComponent(item.id)
+        );
+      }
+
+      $("listView").hidden = true;
+      $("detailView").hidden = false;
+
+      const root = $("detailView");
+      root.replaceChildren();
+
+      const back = createElement(
+        "button",
+        "← Trở về danh sách"
+      );
+
+      back.onclick = () => {
+        if (!canLeaveDetail()) return;
+
+        history.pushState(
+          { page: currentPage },
+          "",
+          "#" + currentPage
+        );
+
+        showList();
+      };
+
+      root.append(back);
+
+      const header = createElement(
+        "div",
+        undefined,
+        "detail-header"
+      );
+
+      header.append(
+        createElement("p", item.category),
+        createElement("h2", item.title),
+        createElement("div", item.chinese, "han")
+      );
+
+      root.append(header);
+
+      let sections;
+
+      if (item.type === "terms") {
+        sections = [
+          ["pali", "Pali"],
+          ["sanskrit", "Sanskrit"],
+          ["meaning", "Ý nghĩa"],
+          ["plainChinese", "中文白話", true],
+          ["original", "原文", true],
+          ["source", "資料來源"]
+        ];
+      } else if (item.type === "rules") {
+        sections = [
+          ["rule", "Học giới"],
+          ["original", "Chánh văn", true],
+          ["offense", "Phạm tướng"],
+          ["exception", "Khai duyên"],
+          ["related", "Liên hệ"],
+          ["source", "資料來源"]
+        ];
+      } else {
+        sections = [
+          ["content", "Nội dung pháp hành"],
+          ["original", "原文", true],
+          ["meaning", "Ý nghĩa"],
+          ["source", "資料來源"]
+        ];
+      }
+
+      for (const [field, label, useChineseFont] of sections) {
+        const section = createElement(
+          "section",
+          undefined,
+          "detail-section"
+        );
+
+        section.append(
+          createElement("h3", label),
+          createElement(
+            "div",
+            getField(item.row, field) || "Chưa có nội dung.",
+            useChineseFont ? "content han" : "content"
+          )
+        );
+
+        root.append(section);
+      }
+
+      const relatedLink = getField(item.row, "link");
+
+      if (safeURL(relatedLink)) {
+        const linkBox = createElement(
+          "div",
+          undefined,
+          "actions"
+        );
+
+        appendLink(
+          linkBox,
+          "Mở tài liệu liên quan ↗",
+          relatedLink
+        );
+
+        root.append(linkBox);
+      }
+
+      const noteBox = createElement(
+        "section",
+        undefined,
+        "note-box"
+      );
+
+      noteBox.append(
+        createElement("h3", "Ghi chú cá nhân")
+      );
+
+      const noteLabel = createElement(
+        "label",
+        "Ghi lại điều bạn muốn nhớ"
+      );
+
+      noteLabel.htmlFor = "personalNote";
+
+      const noteInput = createElement("textarea");
+      noteInput.id = "personalNote";
+
+      noteInput.value = currentUser
+        ? getNotes()[item.id]?.text || ""
+        : "";
+
+      noteInput.dataset.saved = noteInput.value;
+
+      noteInput.placeholder =
+        "Nhập ghi chú học tập của bạn tại đây…";
+
+      const saveButton = createElement(
+        "button",
+        "Lưu ghi chú",
+        "primary"
+      );
+
+      saveButton.onclick = () => {
+        if (!currentUser) {
+          openAuth();
+          return;
         }
 
-        function saveWordNote(termName, termId) {
-            const noteText = document.getElementById(`noteInput_${termId}`).value;
-            localStorage.setItem(`note_term_${termName}`, noteText);
-            alert('Đã lưu ghi chú thành công vào sổ tay cá nhân!');
+        const notes = getNotes();
+
+        if (noteInput.value.trim()) {
+        notes[item.id] = {
+        id: item.id,
+        type: item.type,
+        title: item.title,
+        chinese: item.chinese,
+        category: item.category,
+
+  // Lưu toàn bộ dữ liệu của thuật ngữ/học giới.
+  data: { ...item.row },
+
+  // Ghi chú riêng của người dùng.
+  text: noteInput.value,
+
+  updated: new Date().toISOString()
+};
+        } else {
+          delete notes[item.id];
         }
 
-        // Xử lý tìm kiếm thông minh: Chấp nhận gõ sai chính tả một phần, không dấu, viết liền
-        searchInput.addEventListener('input', (e) => {
-            const rawKeyword = e.target.value;
-            const keyword = cleanString(rawKeyword);
-            
-            if (!keyword) {
-                displayResults(dictionaryData);
-                return;
-            }
+        if (saveStorage(notesKey(), notes)) {
+          noteInput.dataset.saved = noteInput.value;
 
-            const filtered = dictionaryData.filter(item => {
-                const cleanTerm = cleanString(item.term);
-                const cleanChina = cleanString(item.china);
-                const cleanPali = cleanString(item.pali);
-                const cleanSanskrit = cleanString(item.sanskrit);
-                const cleanCategory = cleanString(item.category);
-                const cleanMeaning = cleanString(item.meaning);
+          showToast(
+            "Đã lưu ghi chú trên trình duyệt này."
+          );
+        }
+      };
 
-                return cleanTerm.includes(keyword) ||
-                       cleanChina.includes(keyword) ||
-                       cleanPali.includes(keyword) ||
-                       cleanSanskrit.includes(keyword) ||
-                       cleanCategory.includes(keyword) ||
-                       cleanMeaning.includes(keyword);
-            });
+      noteBox.append(
+        noteLabel,
+        noteInput,
+        saveButton,
+        createElement(
+          "p",
+          "Để xóa ghi chú, xóa hết nội dung rồi bấm Lưu ghi chú.",
+          "small"
+        )
+      );
 
-            displayResults(filtered);
-        });
+      root.append(noteBox);
 
-        function openNotebookModal() {
-            const notebookContent = document.getElementById('notebookContent');
-            notebookContent.innerHTML = '';
-            let hasNotes = false;
+      window.scrollTo(0, 0);
+      root.focus();
+    }
 
-            dictionaryData.forEach(item => {
-                const note = localStorage.getItem(`note_term_${item.term}`);
-                if (note && note.trim() !== '') {
-                    hasNotes = true;
-                    const div = document.createElement('div');
-                    div.className = 'notebook-item';
-                    div.innerHTML = `
-                        <strong style="color: var(--accent-red); font-size: 1.1rem;">${item.term} <span class="china-font">(${item.china})</span></strong>
-                        <div style="font-size: 0.85rem; color: #666; margin-bottom: 5px;">Phân loại: ${item.category} | Ý nghĩa: ${item.meaning}</div>
-                        <div style="background: #F7F1E5; padding: 8px; border-radius: 4px; font-style: italic;"><strong>Ghi chú của bạn:</strong> ${note}</div>
-                    `;
-                    notebookContent.appendChild(div);
-                }
-            });
+    /* =========================================================
+       10. SỔ TAY CÁ NHÂN
+       ========================================================= */
 
-            if (!hasNotes) {
-                notebookContent.innerHTML = '<p style="text-align: center; color: #666;">Chưa có ghi chú nào trong sổ tay. Hãy tra từ và viết ghi chú ở bên dưới mỗi từ nhé!</p>';
-            }
+    function notesKey() {
+      return "vinaya:notes:" + currentUser;
+    }
 
-            document.getElementById('notebookModal').style.display = 'flex';
+    function getNotes() {
+      const value = readStorage(notesKey(), {});
+
+      if (
+        !value ||
+        typeof value !== "object" ||
+        Array.isArray(value)
+      ) {
+        return {};
+      }
+
+      return value;
+    }
+
+    function validNote(id, note) {
+      return !!(
+        note &&
+        typeof note === "object" &&
+        note.id === id &&
+        typeof note.title === "string" &&
+        typeof note.text === "string" &&
+        typeof note.updated === "string" &&
+        Number.isFinite(Date.parse(note.updated)) &&
+        Object.hasOwn(database, note.type) &&
+        id.startsWith(note.type + ":")
+      );
+    }
+
+    function getNoteEntries() {
+      return Object.entries(getNotes())
+        .filter(([id, note]) => validNote(id, note))
+        .map(([, note]) => note)
+        .sort(
+          (first, second) =>
+            Date.parse(second.updated) -
+            Date.parse(first.updated)
+        );
+    }
+function openNotebook() {
+  if (!currentUser) {
+    openAuth();
+    return;
+  }
+
+  const dialog = $("notebookDialog");
+  const root = $("notebookList");
+
+  if (!dialog || !root) {
+    showToast("Không tìm thấy cửa sổ sổ tay trong HTML.");
+    return;
+  }
+
+  root.replaceChildren();
+
+  try {
+    const savedNotes = getNotes();
+
+    const notes = Object.entries(savedNotes)
+      .filter(([, note]) => {
+        return (
+          note &&
+          typeof note === "object" &&
+          typeof note.text === "string"
+        );
+      })
+      .map(([key, note]) => ({
+        ...note,
+        id: note.id || key
+      }))
+      .sort((a, b) => {
+        return (
+          (Date.parse(b.updated) || 0) -
+          (Date.parse(a.updated) || 0)
+        );
+      });
+
+    if (!notes.length) {
+      root.append(
+        createElement(
+          "p",
+          "Sổ tay chưa có nội dung. Hãy mở một mục và lưu ghi chú."
+        )
+      );
+    }
+
+    for (const note of notes) {
+      const section = createElement(
+        "section",
+        undefined,
+        "note-item"
+      );
+
+      section.append(
+        createElement(
+          "h3",
+          note.title || "Mục đã lưu"
+        )
+      );
+
+      if (note.chinese) {
+        section.append(
+          createElement("div", note.chinese, "han")
+        );
+      }
+
+      // Ưu tiên nội dung được lưu cùng ghi chú.
+      let snapshot = note.data;
+
+      if (
+        !snapshot ||
+        typeof snapshot !== "object" ||
+        Array.isArray(snapshot)
+      ) {
+        // Ghi chú cũ: tìm nội dung trong dữ liệu đang tải.
+        const originalItem = database[note.type]?.find(
+          item => item.id === note.id
+        );
+
+        snapshot = originalItem?.row || null;
+      }
+
+      // Thu gọn tài liệu để sổ tay không quá dài.
+      const details = createElement("details");
+
+      details.append(
+        createElement(
+          "summary",
+          "📄 Xem đầy đủ nội dung tài liệu"
+        )
+      );
+
+      if (snapshot) {
+        for (const [column, value] of Object.entries(snapshot)) {
+          const content = String(value ?? "").trim();
+
+          if (!content) continue;
+
+          const block = createElement(
+            "div",
+            undefined,
+            "detail-section"
+          );
+
+          block.append(
+            createElement("strong", column),
+            createElement("div", content, "content")
+          );
+
+          details.append(block);
+        }
+      } else {
+        details.append(
+          createElement(
+            "p",
+            "Ghi chú này chưa có bản lưu tài liệu. " +
+            "Bạn có thể mở mục gốc và lưu lại."
+          )
+        );
+      }
+
+      section.append(details);
+
+      section.append(
+        createElement("h4", "Ghi chú cá nhân"),
+        createElement("p", note.text)
+      );
+
+      const date = new Date(note.updated);
+
+      if (!Number.isNaN(date.getTime())) {
+        section.append(
+          createElement(
+            "p",
+            "Lưu lúc: " + date.toLocaleString("vi-VN"),
+            "small"
+          )
+        );
+      }
+
+      const actions = createElement(
+        "div",
+        undefined,
+        "actions"
+      );
+
+      const openButton = createElement(
+        "button",
+        "Mở mục gốc / sửa ghi chú"
+      );
+
+      openButton.onclick = () => {
+        if (!canLeaveDetail()) return;
+
+        const originalItem = database[note.type]?.find(
+          item => item.id === note.id
+        );
+
+        if (!originalItem) {
+          showToast(
+            "Chưa tìm thấy mục gốc. Nội dung đã lưu vẫn xem được trong sổ tay."
+          );
+          return;
         }
 
-        function exportNotebookText() {
-            let textContent = "=== SỔ TAY CÁ NHÂN TỪ ĐIỂN LUẬT HỌC ===\r\n\r\n";
-            dictionaryData.forEach(item => {
-                const note = localStorage.getItem(`note_term_${item.term}`);
-                if (note && note.trim() !== '') {
-                    textContent += `Thuật ngữ: ${item.term} (${item.china})\r\n`;
-                    textContent += `Phân loại: ${item.category}\r\n`;
-                    textContent += `Ý nghĩa: ${item.meaning}\r\n`;
-                    textContent += `Ghi chú: ${note}\r\n`;
-                    textContent += `-----------------------------------------\r\n\r\n`;
-                }
-            });
+        dialog.close();
+        openDetail(originalItem);
+      };
 
-            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'SoTayLuatHoc.txt';
-            a.click();
+      const deleteButton = createElement(
+        "button",
+        "Xóa khỏi sổ tay"
+      );
+
+      deleteButton.onclick = () => {
+        if (!confirm("Bạn muốn xóa mục này khỏi sổ tay?")) {
+          return;
         }
 
-        let currentFlashcardIndex = 0;
-        function openFlashcardModal() {
-            currentFlashcardIndex = 0;
-            showFlashcard();
-            document.getElementById('flashcardModal').style.display = 'flex';
+        const latestNotes = getNotes();
+        delete latestNotes[note.id];
+
+        if (saveStorage(notesKey(), latestNotes)) {
+          openNotebook();
+        }
+      };
+
+      actions.append(openButton, deleteButton);
+      section.append(actions);
+      root.append(section);
+    }
+  } catch (error) {
+    console.error("Lỗi sổ tay:", error);
+
+    root.append(
+      createElement(
+        "p",
+        "Không đọc được sổ tay: " + error.message
+      )
+    );
+  }
+
+  if (!dialog.open) {
+    dialog.showModal();
+  }
+}
+  
+    function downloadFile(filename, content, mimeType) {
+      const blob = new Blob(
+        ["\uFEFF", content],
+        { type: mimeType }
+      );
+
+      const url = URL.createObjectURL(blob);
+      const anchor = createElement("a");
+
+      anchor.href = url;
+      anchor.download = filename;
+
+      document.body.append(anchor);
+      anchor.click();
+      anchor.remove();
+
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+   function exportNotebookText() {
+  const body = getNoteEntries()
+    .map(note => fullNotebookText(note))
+    .join("\n\n════════════════════════════\n\n");
+
+  downloadFile(
+    "So-tay-Luat-hoc.txt",
+    "SỔ TAY LUẬT HỌC\n\n" + body,
+    "text/plain;charset=utf-8"
+  );
+}
+
+    function backupNotebook() {
+      downloadFile(
+        "So-tay-Luat-hoc.json",
+        JSON.stringify(
+          {
+            version: 1,
+            notes: getNotes()
+          },
+          null,
+          2
+        ),
+        "application/json;charset=utf-8"
+      );
+    }
+
+    async function importNotebook(event) {
+      const file = event.target.files[0];
+
+      if (!file) return;
+
+      try {
+        if (!currentUser) {
+          throw new Error("Hãy mở tài khoản sổ tay trước.");
         }
 
-        function showFlashcard() {
-            const container = document.getElementById('flashcardContainer');
-            if (dictionaryData.length === 0) return;
-            const item = dictionaryData[currentFlashcardIndex];
-            container.innerHTML = `
-                <div style="font-size: 0.85rem; color: #888; margin-bottom: 5px;">Thẻ ${currentFlashcardIndex + 1} / ${dictionaryData.length}</div>
-                <div style="font-size: 1.5rem; font-weight: bold; color: var(--accent-red); margin-bottom: 10px;">${item.term} <span class="china-font">(${item.china})</span></div>
-                <div style="font-size: 1rem; margin-bottom: 10px;"><strong>Phân loại:</strong> ${item.category}</div>
-                <div style="font-size: 1.05rem; color: #444; font-style: italic;"><strong>Ý nghĩa:</strong> ${item.meaning}</div>
-            `;
+        if (file.size > 5 * 1024 * 1024) {
+          throw new Error("Tệp quá lớn. Giới hạn là 5 MB.");
         }
 
-        function nextFlashcard() {
-            currentFlashcardIndex = (currentFlashcardIndex + 1) % dictionaryData.length;
-            showFlashcard();
+        const text = (await file.text()).replace(/^\uFEFF/, "");
+        const payload = JSON.parse(text);
+
+        if (
+          payload.version !== 1 ||
+          !payload.notes ||
+          typeof payload.notes !== "object" ||
+          Array.isArray(payload.notes)
+        ) {
+          throw new Error("Tệp không đúng định dạng sổ tay.");
         }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
+        const merged = getNotes();
+
+        for (const [id, note] of Object.entries(payload.notes)) {
+          if (!validNote(id, note)) {
+            throw new Error("Tệp chứa ghi chú không hợp lệ.");
+          }
+
+          if (
+            !merged[id] ||
+            Date.parse(note.updated) >
+              Date.parse(merged[id].updated)
+          ) {
+            merged[id] = note;
+          }
         }
 
-        checkUser();
-        loadGoogleSheetData();
-    </script>
+        if (saveStorage(notesKey(), merged)) {
+          showToast("Đã nhập bản sao sổ tay.");
+          openNotebook();
+        }
+      } catch (error) {
+        showToast(error.message);
+      } finally {
+        event.target.value = "";
+      }
+    }
+
+    /* =========================================================
+       11. SỐ ĐIỆN THOẠI VÀ OTP MÔ PHỎNG
+       ========================================================= */
+
+    /* =========================================================
+   11. HỒ SƠ NGƯỜI DÙNG — NHẬP MỘT LẦN
+   ========================================================= */
+
+function normalizePhone(value) {
+  let phone = String(value || "")
+    .replace(/[\s().-]/g, "");
+
+  // Quy đổi số Việt Nam sang cùng một định dạng.
+  if (/^0[0-9]{9}$/.test(phone)) {
+    phone = "+84" + phone.slice(1);
+  }
+
+  return /^\+[1-9][0-9]{7,14}$/.test(phone)
+    ? phone
+    : "";
+}
+
+function getSavedProfile() {
+  const profile = readStorage("vinaya:profile", null);
+
+  if (
+    !profile ||
+    typeof profile.name !== "string" ||
+    typeof profile.phone !== "string"
+  ) {
+    return null;
+  }
+
+  const name = profile.name.trim();
+  const phone = normalizePhone(profile.phone);
+
+  if (!name || !phone) {
+    return null;
+  }
+
+  return { name, phone };
+}
+
+function updateAccountButton() {
+  const profile = getSavedProfile();
+
+  if (profile && profile.phone === currentUser) {
+    $("accountButton").textContent = "👤 " + profile.name;
+    $("accountButton").title = "Xem hoặc sửa thông tin cá nhân";
+  } else if (currentUser) {
+    $("accountButton").textContent =
+      "👤 " + currentUser.slice(-4);
+
+    $("accountButton").title = "Bổ sung tên hiển thị";
+  } else {
+    $("accountButton").textContent = "👤 Tài khoản";
+    $("accountButton").title = "Tạo hồ sơ học tập";
+  }
+}
+
+function openAuth() {
+  const profile = getSavedProfile();
+
+  $("nameInput").value = profile?.name || "";
+
+  $("phoneInput").value =
+    profile?.phone || currentUser || "";
+
+  $("accountDialogTitle").textContent = profile
+    ? "Thông tin cá nhân"
+    : "Chào mừng bạn";
+
+  $("authError").textContent = "";
+
+  if (!$("authDialog").open) {
+    $("authDialog").showModal();
+  }
+}
+
+function submitProfile(event) {
+  event.preventDefault();
+
+  const name = $("nameInput").value.trim();
+  const phone = normalizePhone($("phoneInput").value);
+
+  if (!name) {
+    $("authError").textContent =
+      "Bạn vui lòng nhập tên hiển thị.";
+
+    $("nameInput").focus();
+    return;
+  }
+
+  if (!phone) {
+    $("authError").textContent =
+      "Nhập số Việt Nam gồm 10 chữ số hoặc số quốc tế bắt đầu bằng +.";
+
+    $("phoneInput").focus();
+    return;
+  }
+
+  const previousUser = currentUser;
+
+  // Khi đổi sang số khác, hỏi trước nếu đang có ghi chú chưa lưu.
+  if (
+    previousUser &&
+    previousUser !== phone &&
+    !canLeaveDetail()
+  ) {
+    return;
+  }
+
+  const profile = { name, phone };
+
+  if (!saveStorage("vinaya:profile", profile)) {
+    $("authError").textContent =
+      "Chưa lưu được thông tin. Kiểm tra quyền lưu trữ của trình duyệt.";
+
+    return;
+  }
+
+  currentUser = phone;
+
+  // Giữ tương thích với phần sổ tay hiện tại.
+  saveStorage("vinaya:user", currentUser);
+
+  updateAccountButton();
+  $("authDialog").close();
+
+  if (currentItem) {
+    const noteInput = $("personalNote");
+
+    // Giữ ghi chú đang nhập khi vừa tạo tài khoản từ chế độ khách.
+    const keepGuestDraft =
+      !previousUser &&
+      noteInput &&
+      noteInput.value.trim() !== "";
+
+    // Cùng số điện thoại thì không cần tải lại phần ghi chú.
+    const sameUser = previousUser === currentUser;
+
+    if (!keepGuestDraft && !sameUser) {
+      openDetail(currentItem, false);
+    }
+
+    if (keepGuestDraft) {
+      showToast(
+        "Chào " + name +
+        ". Bấm Lưu ghi chú để lưu nội dung đang viết."
+      );
+
+      return;
+    }
+  }
+
+  showToast("Đã lưu thông tin của " + name + ".");
+}
+
+// Khôi phục tài khoản đã lưu khi mở ứng dụng.
+const restoredProfile = getSavedProfile();
+
+if (restoredProfile) {
+  currentUser = restoredProfile.phone;
+}
+
+    /* =========================================================
+       12. SỰ KIỆN
+       ========================================================= */
+
+    document.querySelectorAll("[data-page]").forEach(button => {
+      button.onclick = () => changePage(button.dataset.page);
+    });
+
+    $("searchInput").addEventListener("input", event => {
+      searchValues[currentPage] = event.target.value;
+      displayLimit = 40;
+      renderList();
+    });
+
+    $("refreshButton").onclick = () => {
+      loadData(currentPage);
+    };
+
+    $("loadMore").onclick = () => {
+      displayLimit += 40;
+      renderList();
+    };
+
+    $("accountButton").onclick = openAuth;
+    $("authForm").onsubmit = submitProfile;
+
+    $("closeAuth").onclick = () => {
+      $("authDialog").close();
+    };
+
+    $("guestButton").onclick = () => {
+      $("authDialog").close();
+    };
+
+    $("notebookButton").onclick = openNotebook;
+
+    $("closeNotebook").onclick = () => {
+      $("notebookDialog").close();
+    };
+
+    $("exportTxtButton").onclick = exportNotebookText;
+    $("backupButton").onclick = backupNotebook;
+    $("importInput").onchange = importNotebook;
+
+    window.addEventListener("beforeunload", event => {
+      if (noteIsDirty()) {
+        event.preventDefault();
+        event.returnValue = "";
+      }
+    });
+
+    function readRoute() {
+      const parts = location.hash.slice(1).split("/");
+
+      const page = Object.hasOwn(database, parts[0])
+        ? parts[0]
+        : "terms";
+
+      let id = "";
+
+      try {
+        id = decodeURIComponent(parts.slice(1).join("/"));
+      } catch {
+        id = "";
+      }
+
+      return { page, id };
+    }
+
+    window.addEventListener("popstate", () => {
+      if (!canLeaveDetail()) {
+        if (currentItem) {
+          history.pushState(
+            {
+              page: currentPage,
+              id: currentItem.id
+            },
+            "",
+            "#" +
+              currentPage +
+              "/" +
+              encodeURIComponent(currentItem.id)
+          );
+        }
+
+        return;
+      }
+
+      const route = readRoute();
+
+      currentPage = route.page;
+      currentCategory = "";
+
+      const item = database[currentPage].find(
+        entry => entry.id === route.id
+      );
+
+      if (item) {
+        openDetail(item, false);
+      } else {
+        showList();
+      }
+    });
+
+    // Tab khác thay đổi tài khoản không làm đổi chủ ghi chú đang viết.
+    window.addEventListener("storage", event => {
+      if (event.key === "vinaya:user") {
+        if (noteIsDirty()) {
+          showToast(
+            "Tài khoản đã đổi ở tab khác. Ghi chú đang nhập vẫn thuộc tài khoản hiện tại."
+          );
+
+          return;
+        }
+
+        const nextUser = readStorage("vinaya:user", "");
+
+        currentUser =
+          typeof nextUser === "string" ? nextUser : "";
+
+        updateAccountButton();
+
+        if (currentItem) {
+          openDetail(currentItem, false);
+        }
+      }
+
+      if (
+        event.key === notesKey() &&
+        $("notebookDialog").open
+      ) {
+        openNotebook();
+      }
+    });
+
+    /* =========================================================
+       13. KHỞI ĐỘNG
+       ========================================================= */
+
+    async function initialize() {
+   
+      const route = readRoute();
+
+      currentPage = route.page;
+
+      updateAccountButton();
+      renderList();
+
+      if (!getSavedProfile()) {
+  openAuth();
+}
+
+      await Promise.all(
+        Object.keys(database).map(loadData)
+      );
+
+      // Chỉ mở đường dẫn ban đầu nếu người dùng chưa điều hướng nơi khác.
+      if (!currentItem && location.hash === (
+        route.id
+          ? "#" + route.page + "/" + encodeURIComponent(route.id)
+          : "#" + route.page
+      )) {
+        const item = database[route.page].find(
+          entry => entry.id === route.id
+        );
+
+        if (item) {
+          openDetail(item, false);
+        }
+      }
+
+      setInterval(() => {
+        if (document.visibilityState === "visible") {
+          Object.keys(database).forEach(loadData);
+        }
+      }, CONFIG.refreshMilliseconds);
+    }
+
+    initialize();
+  </script>
 </body>
 </html>
