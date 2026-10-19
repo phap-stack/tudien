@@ -532,6 +532,42 @@ main {
     max-width: 360px;
   }
 }
+.rule-result .rule-name {
+  font-weight: bold;
+  color: #8B5A2B;
+}
+/* Gợi ý từ điển: tên và chữ Hán ở trên, phân loại ở dưới */
+.results .result-card:not(.rule-result) {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 12px;
+  row-gap: 4px;
+  align-items: baseline;
+  text-align: left;
+}
+
+.results .result-card:not(.rule-result) strong {
+  grid-column: 1;
+  margin: 0;
+}
+
+.results .result-card:not(.rule-result) .han {
+  grid-column: 2;
+  margin: 0;
+  text-align: left;
+}
+
+.results .result-card:not(.rule-result) small {
+  display: block;
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #786552;
+  font-size: 15px;
+}
+.rule-result .rule-category {
+  font-size: 13px;
+  font-weight: normal;
+}
   </style>
 
 </head>
@@ -786,6 +822,8 @@ main {
       id: ["ID", "Mã"],
 
       title: [
+        "Tên gọi",
+        "Tên gọi",
         "Term",
         "Tên học giới",
         "Tên pháp hành",
@@ -835,7 +873,7 @@ main {
         "Nguồn trích dẫn"
       ],
 
-      rule: ["Học giới", "Điều học"],
+      rule: ["Học giới",],
 
       offense: ["Phạm tướng"],
 
@@ -1268,7 +1306,17 @@ main {
         currentAudience;
 
       // Thêm tên chuẩn để phần giao diện cũ đọc được.
-      record.Term = title;
+      // Ưu tiên cột Tên gọi để làm tiêu đề.
+const nameColumnIndex = normalizedHeaders.findIndex(
+  name => ["tengoi", "tenhocgioi", "term"].includes(name)
+);
+
+const displayName = nameColumnIndex >= 0
+  ? (values[nameColumnIndex] || "").trim()
+  : "";
+
+// Giữ nguyên nội dung cột Học giới.
+record.Term = displayName || title;
       record.Category = audience;
       record["Nhóm học giới"] = currentGroup;
 
@@ -1791,14 +1839,54 @@ function searchScore(item, query) {
           "result-card"
         );
 
-        button.append(
-          createElement("strong", item.title),
-          createElement("span", item.chinese, "han"),
-          createElement(
-            "small",
-            item.category || "Chưa phân loại"
-          )
-        );
+        if (item.type === "rules") {
+  button.classList.add("rule-result");
+
+  // Dòng 1: nội dung cột Học giới.
+  const ruleHeading = createElement(
+    "div",
+    getField(item.row, "rule") || "Học giới",
+    "rule-heading"
+  );
+
+  // Dòng 2: Tên gọi (Phân loại).
+  const nameLine = createElement(
+    "div",
+    undefined,
+    "rule-name-line"
+  );
+
+  const name = createElement(
+    "span",
+    item.title,
+    "rule-name"
+  );
+
+  nameLine.append(name);
+
+  if (item.category) {
+    nameLine.append(
+      document.createTextNode(" "),
+      createElement(
+        "span",
+        "(" + item.category + ")",
+        "rule-category"
+      )
+    );
+  }
+
+  button.append(ruleHeading, nameLine);
+} else {
+  // Giữ cách hiển thị của Từ điển và Pháp hành.
+  button.append(
+    createElement("strong", item.title),
+    createElement("span", item.chinese, "han"),
+    createElement(
+      "small",
+      item.category || "Chưa phân loại"
+    )
+  );
+}
 
         button.onclick = () => {
           if (canLeaveDetail()) {
@@ -1944,7 +2032,7 @@ function searchScore(item, query) {
         ];
       } else if (item.type === "rules") {
         sections = [
-          ["rule", "Học giới"],
+          ["rule", "Học giới","Tên học giới"],
           ["original", "Chánh văn", true],
           ["offense", "Phạm tướng"],
           ["exception", "Khai duyên"],
