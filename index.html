@@ -7,506 +7,451 @@
   <title>Từ điển Luật học · 佛律辭典</title>
 
   <style>
-   /* Thu gọn khoảng cách phía trên nội dung */
-main {
-  padding-top: 12px;
-}
-
-/* Khối tiêu đề tra cứu */
+   /* Khối tiêu đề tra cứu */
 #listView .intro {
   height: auto;
   min-height: 0;
-  margin: 0 0 12px;
-  padding: 10px 0;
+  margin: 0 0 8px;
+  padding: 6px 0;
 }
-
 /* Dòng HỌC LUẬT · HIỂU NGHĨA · THỰC HÀNH */
 #listView .intro .eyebrow {
   margin: 0 0 5px;
   line-height: 1.2;
 }
-
 /* Tiêu đề Tra cứu_Học giới */
 #listView .intro h2 {
   margin: 5px 0;
   line-height: 1.2;
 }
-
 /* Câu chữ Hán bên dưới */
 #listView .intro p {
   margin: 5px 0 0;
   line-height: 1;
 } 
-    :root {
-      --background: #FDFBF7;
-      --brown: #8B5A2B;
-      --red: #800020;
-      --text: #392F28;
-      --border: #E1D5C5;
-      --soft: #F3ECDF;
-      --white: #FFFFFF;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    [hidden] {
-      display: none !important;
-    }
-
-    body {
-      margin: 0;
-      background: var(--background);
-      color: var(--text);
-      font-family: "Times New Roman", serif;
-      font-size: 18px;
-      line-height: 1.5;
-    }
-
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    button,
-    .file-button {
-      padding: 10px 16px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--white);
-      color: var(--brown);
-      transition: background 0.2s, border-color 0.2s;
-    }
-
-    button:hover,
-    .file-button:hover {
-      background: var(--soft);
-      border-color: var(--brown);
-    }
-
-    button:disabled {
-      opacity: 0.55;
-      cursor: wait;
-    }
-
-    button:focus-visible,
-    input:focus-visible,
-    textarea:focus-visible,
-    a:focus-visible {
-      outline: 3px solid #BC925E;
-      outline-offset: 3px;
-    }
-
-    .primary {
-      background: var(--brown);
-      border-color: var(--brown);
-      color: white;
-    }
-
-    .primary:hover {
-      background: #724720;
-      color: white;
-    }
-
-    .han {
-      font-family:
-        "Kaiti TC",
-        "KaiTi",
-        "楷體",
-        "Noto Serif TC",
-        serif;
-    }
-
-    header {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .seal {
-      background: var(--red);
-      color: var(--background);
-      font-size: 36px;
-      padding: 0 14px;
-      border-radius: 5px;
-    }
-
-    h1 {
-      margin: 0;
-      color: var(--red);
-      font-size: 30px;
-      line-height: 1.3;
-    }
-
-    .brand-subtitle {
-      color: var(--brown);
-      letter-spacing: 4px;
-    }
-
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      padding: 12px;
-      background: rgba(253, 251, 247, 0.97);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    nav button.active {
-      color: white;
-      background: var(--brown);
-      border-color: var(--brown);
-    }
-
-    main {
-      max-width: 1020px;
-      min-height: 65vh;
-      margin: auto;
-      padding: 28px 24px 50px;
-    }
-
-    .intro {
-      text-align: center;
-      padding: 18px 0 25px;
-    }
-
-    .eyebrow {
-      color: var(--brown);
-      font-size: 12px;
-      letter-spacing: 3px;
-    }
-
-    h2 {
-      color: var(--red);
-      font-size: 32px;
-      margin: 10px 0;
-    }
-
-    h3 {
-      color: var(--red);
-      margin: 0 0 10px;
-      font-size: 23px;
-    }
-
-    p {
-      margin: 10px 0;
-    }
-
-    .search-row {
-      display: flex;
-      gap: 10px;
-      margin: 8px 0 16px;
-    }
-
-    input,
-    textarea {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: white;
-      color: var(--text);
-    }
-
-    .search-row input {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .chips button {
-      border-radius: 24px;
-      font-size: 16px;
-      padding: 7px 14px;
-    }
-
-    .chips button.active {
-      background: var(--red);
-      border-color: var(--red);
-      color: white;
-    }
-
-    .status {
-      color: #786552;
-      font-size: 15px;
-      margin: 16px 0;
-    }
-
-   .results-list {
-      max-height: 50vh;
-      overflow-y: auto;
-      border-top: 1px solid var(--border-color);
-        }
+  :root {
+  --background: #FDFBF7;
+  --brown: #8B5A2B;
+  --red: #800020;
+  --text: #392F28;
+  --border: #E1D5C5;
+  --soft: #F3ECDF;
+  --white: #FFFFFF;
+  }
+  * {
+  box-sizing: border-box;
+  }
+  [hidden] {
+  display: none !important;
+  }
+  body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.5;
+  }
+  button,
+  input,
+  textarea {
+  font: inherit;
+  }
+  button {
+  cursor: pointer;
+  }
+  button,
+  .file-button {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--brown);
+  transition: background 0.2s, border-color 0.2s;
+  }
+  button:hover,
+  .file-button:hover {
+  background: var(--soft);
+  border-color: var(--brown);
+  }
+  button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+  }
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  a:focus-visible {
+  outline: 3px solid #BC925E;
+  outline-offset: 3px;
+  }
+  .primary {
+  background: var(--brown);
+  border-color: var(--brown);
+  color: white;
+  }
+  .primary:hover {
+  background: #724720;
+  color: white;
+  }
+  .han {
+  font-family:
+  "Kaiti TC",
+  "KaiTi",
+  "楷體",
+  "Noto Serif TC",
+  serif;
+  }
+  header {
+  max-width: 1000px;
+  margin: auto;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  }
+  .brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  }
+  .seal {
+  background: var(--red);
+  color: var(--background);
+  font-size: 36px;
+  padding: 0 14px;
+  border-radius: 5px;
+  }
+  h1 {
+  margin: 0;
+  color: var(--red);
+  font-size: 30px;
+  line-height: 1.3;
+  }
+  .brand-subtitle {
+  color: var(--brown);
+  letter-spacing: 4px;
+  }
+  nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  background: rgba(253, 251, 247, 0.97);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  }
+  nav button.active {
+  color: white;
+  background: var(--brown);
+  border-color: var(--brown);
+  }
+  main {
+  max-width: 1020px;
+  margin: auto;
+  padding: 12px 24px 24px;
+  }
+  .intro {
+  text-align: center;
+  padding: 8px 0 10px;
+  }
+  .eyebrow {
+  color: var(--brown);
+  font-size: 12px;
+  letter-spacing: 3px;
+  }
+  h2 {
+  color: var(--red);
+  font-size: 32px;
+  margin: 10px 0;
+  }
+  h3 {
+  color: var(--red);
+  margin: 0 0 10px;
+  font-size: 23px;
+  }
+  p {
+  margin: 10px 0;
+  }
   
+
+/* Hàng tìm kiếm */
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 12px;
+  flex-wrap: nowrap;
+}
+
+/* Ô nhập liệu chung */
+input,
+textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  color: var(--text);
+}
+
+/* Ô nhập từ khóa */
+.search-row input {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  height: 44px;
+}
+
+/* Nút Cập nhật bên trái */
+.search-row button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  margin: 0;
+  height: 44px;
+  padding: 0 12px;
+  font-size: 15px;
+}
+
+  .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  }
+  .chips button {
+  border-radius: 24px;
+  font-size: 16px;
+  padding: 7px 14px;
+  }
+  .chips button.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
+  }
+  .status {
+  color: #786552;
+  font-size: 15px;
+  margin: 8px 0;
+  }
+   .results-list {
+  max-height: 50vh;
+  overflow-y: auto;
+  border-top: 1px solid var(--border);
+  }
 /* Thu gọn từng ô thuật ngữ */
 .results .result-card {
   width:100%;
-  padding: 8px 16px;
+  padding: 7px 12px;
   text-align: left;
   min-height: 0;
   height: auto;
   line-height: 1.35;
 }
-
-
 /* Thiết kế từng dòng mục gợi ý trong danh sách */
 .term-item {
-    padding: 12px;
-    border-bottom: 1px solid var(--border-color);
-    cursor: pointer;
-    transition: background 0.2s;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.2s;
 }
-    .empty {
-      grid-column: 1 / -1;
-      padding: 15px;
-      text-align: center;
-      background: var(--soft);
-      border-radius: 10px;
-    }
-
-    #loadMore {
-      display: block;
-      margin: 24px auto 0;
-    }
-
-    .detail-header {
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .detail-header h2 {
-      font-size: 30px;
-    }
-
-    .detail-header .han {
-      color: var(--brown);
-      font-size: 28px;
-    }
-
-    .detail-section {
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .content {
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
-
-    .content.han {
-      font-size: 23px;
-      line-height: 1.9;
-    }
-
-    .note-box {
-      margin-top: 30px;
-      padding: 24px;
-      background: var(--soft);
-      border-radius: 12px;
-    }
-
-    textarea {
-      display: block;
-      min-height: 150px;
-      margin: 10px 0 14px;
-      resize: vertical;
-    }
-
-    .small {
-      font-size: 15px;
-      color: #786552;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      margin: 16px 0;
-    }
-
-    footer {
-      padding: 25px 16px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: #786552;
-      font-size: 14px;
-    }
-
-    a {
-      color: var(--red);
-    }
-
-    footer a {
-      display: inline-block;
-      margin: 4px 12px;
-    }
-
-    dialog {
-      width: min(740px, calc(100% - 28px));
-      max-height: 90vh;
-      padding: 26px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: var(--background);
-      color: var(--text);
-    }
-
-    dialog::backdrop {
-      background: rgba(30, 20, 10, 0.55);
-    }
-
-    dialog input {
-      margin: 6px 0 14px;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .note-item {
-      padding: 20px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .note-item p {
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
-
-    .file-button {
-      display: inline-block;
-      cursor: pointer;
-    }
-
-    .error {
-      color: var(--red);
-    }
-
-    #toast {
-      position: fixed;
-      bottom: 22px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      max-width: calc(100% - 28px);
-      padding: 12px 20px;
-      border-radius: 8px;
-      background: var(--red);
-      color: white;
-      text-align: center;
-    }
-
-    #toast:empty {
-      display: none;
-    }
-
-    @media (max-width: 600px) {
-      body {
-        font-size: 17px;
-      }
-
-      header {
-        padding: 20px 15px;
-      }
-
-      .brand {
-        gap: 10px;
-      }
-
-      h1 {
-        font-size: 22px;
-      }
-
-      .seal {
-        font-size: 28px;
-        padding: 0 10px;
-      }
-
-      .brand-subtitle {
-        font-size: 17px;
-      }
-
-      #accountButton {
-        padding: 7px 10px;
-        font-size: 14px;
-      }
-
-      nav {
-        gap: 5px;
-        padding: 10px 6px;
-      }
-
-      nav button {
-        padding: 8px 7px;
-        font-size: 15px;
-      }
-
-      main {
-        padding: 20px 15px 35px;
-      }
-
-      h2 {
-        font-size: 27px;
-      }
-
-      .results {
-        grid-template-columns: 1fr;
-      }
-
-      .search-row {
-        flex-wrap: wrap;
-      }
-
-      .search-row input {
-        flex-basis: 100%;
-      }
-
-      .detail-header h2 {
-        font-size: 30px;
-      }
-
-      dialog {
-        padding: 20px;
-      }
-    }
-    #externalLinks {
+  .empty {
+  grid-column: 1 / -1;
+  padding: 15px;
+  text-align: center;
+  background: var(--soft);
+  border-radius: 10px;
+  }
+  #loadMore {
+  display: block;
+  margin: 12px auto 0;
+  }
+  .detail-header {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  }
+  .detail-header h2 {
+  font-size: 30px;
+  }
+  .detail-header .han {
+  color: var(--brown);
+  font-size: 28px;
+  }
+  .detail-section {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  }
+  .content {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  }
+  .content.han {
+  font-size: 23px;
+  line-height: 1.9;
+  }
+  .note-box {
+  margin-top: 14px;
+  padding: 16px;
+  background: var(--soft);
+  border-radius: 12px;
+  }
+  textarea {
+  display: block;
+  min-height: 150px;
+  margin: 10px 0 14px;
+  resize: vertical;
+  }
+  .small {
+  font-size: 15px;
+  color: #786552;
+  }
+  .actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  }
+  footer {
+  padding: 25px 16px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: #786552;
+  font-size: 14px;
+  }
+  a {
+  color: var(--red);
+  }
+  footer a {
+  display: inline-block;
+  margin: 4px 12px;
+  }
+  dialog {
+  width: min(740px, calc(100% - 28px));
+  max-height: 90vh;
+  padding: 26px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--background);
+  color: var(--text);
+  }
+  dialog::backdrop {
+  background: rgba(30, 20, 10, 0.55);
+  }
+  dialog input {
+  margin: 6px 0 14px;
+  }
+  .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  }
+  .note-item {
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+  }
+  .note-item p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  }
+  .file-button {
+  display: inline-block;
+  cursor: pointer;
+  }
+  .error {
+  color: var(--red);
+  }
+  #toast {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  max-width: calc(100% - 28px);
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: var(--red);
+  color: white;
+  text-align: center;
+  }
+  #toast:empty {
+  display: none;
+  }
+  @media (max-width: 600px) {
+  body {
+  font-size: 17px;
+  }
+  header {
+  padding: 12px 15px;
+  }
+  .brand {
+  gap: 10px;
+  }
+  h1 {
+  font-size: 22px;
+  }
+  .seal {
+  font-size: 28px;
+  padding: 0 10px;
+  }
+  .brand-subtitle {
+  font-size: 17px;
+  }
+  #accountButton {
+  padding: 7px 10px;
+  font-size: 14px;
+  }
+  nav {
+  gap: 5px;
+  padding: 10px 6px;
+  }
+  nav button {
+  padding: 8px 7px;
+  font-size: 15px;
+  }
+  main {
+  padding: 10px 15px 22px;
+  }
+  h2 {
+  font-size: 27px;
+  }
+  .results {
+  grid-template-columns: 1fr;
+  }
+.search-row {
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+.search-row input {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 10px;
+  font-size: 15px;
+}
+.search-row button {
+  flex: 0 0 auto;
+  padding: 0 8px;
+  font-size: 13px;
+}
+  .detail-header h2 {
+  font-size: 30px;
+  }
+  dialog {
+  padding: 20px;
+  }
+  }
+  #externalLinks {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 16px;
 }
-
 #externalLinks a {
   display: inline-flex;
   align-items: center;
@@ -520,16 +465,14 @@ main {
   text-decoration: none;
   transition: background 0.2s;
 }
-
 #externalLinks a:hover {
   background: var(--red);
   border-color: var(--red);
 }
-
 @media (max-width: 600px) {
   #externalLinks a {
-    width: 100%;
-    max-width: 360px;
+  width: 100%;
+  max-width: 360px;
   }
 }
 .rule-result .rule-name {
@@ -545,18 +488,15 @@ main {
   align-items: baseline;
   text-align: left;
 }
-
 .results .result-card:not(.rule-result) strong {
   grid-column: 1;
   margin: 0;
 }
-
 .results .result-card:not(.rule-result) .han {
   grid-column: 2;
   margin: 0;
   text-align: left;
 }
-
 .results .result-card:not(.rule-result) small {
   display: block;
   grid-column: 1 / -1;
@@ -568,6 +508,7 @@ main {
   font-size: 13px;
   font-weight: normal;
 }
+
   </style>
 
 </head>
@@ -648,40 +589,46 @@ main {
 </div>
 
   <main>
-    <section id="listView">
-      <div class="intro">
-        <div class="eyebrow">
-          HỌC LUẬT · HIỂU NGHĨA · THỰC HÀNH
-        </div>
-        <h2 id="pageTitle">Tra cứu thuật ngữ</h2>
-        <p>毘尼藏住，佛法久住.</p>
-      </div>
-      <label for="searchInput">Từ khóa tra cứu</label>
-
-      <div id="searchView" class="view-section active">
-        <div class="card">
-            <input type="text" id="searchInput" class="search-box" placeholder="Gõ từ khóa, không dấu (yetma) hoặc phân loại...">
-            <div class="search-hint">💡 Nhấp vào từ gợi ý để mở trang nội dung riêng biệt.</div>
-            <div id="resultsList" class="results-list">Đang tải dữ liệu từ điển...</div>
-        </div>
+     
+<section id="listView">
+  <div class="intro">
+    <div class="eyebrow">
+      毘尼藏住，佛法久住.
     </div>
-        >
-        <button id="refreshButton">↻ Cập nhật</button>
-      </div>
+    <h2 id="pageTitle">Tra cứu thuật ngữ</h2>
+  </div>
 
-      <div id="categoryChips" class="chips"></div>
+  <div id="searchView" class="view-section active">
+    <div class="search-row">
+      <button id="refreshButton" type="button">
+        ↻ Cập nhật
+      </button>
 
-      <p
-        id="dataStatus"
-        class="status"
-        role="status"
-        aria-live="polite"
-      ></p>
+      <input
+        type="text"
+        id="searchInput"
+        class="search-box"
+        placeholder="Nhập từ khóa: Yết ma, 羯磨..."
+        aria-label="Từ khóa tra cứu"
+      >
+    </div>
+  </div>
 
-      <div id="results" class="results"></div>
+  <div id="categoryChips" class="chips"></div>
 
-      <button id="loadMore" hidden>Xem thêm</button>
-    </section>
+  <p
+    id="dataStatus"
+    class="status"
+    role="status"
+    aria-live="polite"
+  ></p>
+
+  <div id="results" class="results"></div>
+
+  <button id="loadMore" hidden>
+    Xem thêm
+  </button>
+</section>
 
     <article id="detailView" tabindex="-1" hidden></article>
   </main>
@@ -689,11 +636,10 @@ main {
   <footer>
     <div id="externalLinks"></div>
 
-    <p>
-      Hoằng dương Luật học-Dĩ giới vi sư
-   <p>
-      弘陽律學-以戒為師 
-    </p>
+   
+<p>弘揚律學－以戒為師</p>
+<p>HỌC LUẬT · HIỂU NGHĨA · THỰC HÀNH</p>
+
   </footer>
 
   <!-- Đăng nhập mô phỏng -->
@@ -763,12 +709,12 @@ main {
     </div>
 
     <p class="small">
-      Xuất PDF để đọc hoặc in. Dùng bản sao JSON để chuyển ghi chú
+      Xuất TXT để đọc hoặc in. Dùng bản sao JSON để chuyển ghi chú
       sang trình duyệt hoặc thiết bị khác.
     </p>
 
     <div class="actions">
-      <button id="exportTxtButton">📥 Tải sổ tay PDF</button>
+      <button id="exportTxtButton">📥 Tải sổ tay TXT</button>
       <button id="backupButton">Sao lưu JSON</button>
 
       <label class="file-button">
@@ -869,12 +815,11 @@ main {
 
       source: [
         "原來資料",
-        "資料來源",
+        "Tài liệu ",
+        "Tài liệu tham khảo",
         "Nguồn",
         "Nguồn tài liệu",
-        "Nguồn trích dẫn",
-        "Tài liệu",
-        "Tai lieu"
+        "Nguồn trích dẫn"
       ],
 
       rule: ["Học giới",],
@@ -2450,6 +2395,26 @@ function openNotebook() {
 
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
+   
+function fullNotebookText(note) {
+  const lines = [
+    "Tên mục: " + (note.title || ""),
+    "Chữ Hán: " + (note.chinese || ""),
+    "Phân loại: " + (note.category || "")
+  ];
+
+  if (note.data && typeof note.data === "object") {
+    for (const [key, value] of Object.entries(note.data)) {
+      if (String(value ?? "").trim()) {
+        lines.push(key + ": " + value);
+      }
+    }
+  }
+
+  lines.push("Ghi chú cá nhân: " + note.text);
+
+  return lines.join("\n\n");
+}
 
    function exportNotebookText() {
   const body = getNoteEntries()
