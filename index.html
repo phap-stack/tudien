@@ -752,6 +752,14 @@ textarea {
         practice: ""
       },
 
+      rulesTabs: [
+        { gid: "0", category: "Giới Tỳ kheo" },
+        { gid: "2119743182", category: "Tỳ kheo ni" },
+        { gid: "248804506", category: "Thức xoa ma na" },
+        { gid: "1638898495", category: "Sa di" },
+        { gid: "1761849456", category: "Sa di ni" }
+      ],
+
       // Điền URL thật để hiện các liên kết ở cuối trang.
       youtube: "https://www.youtube.com/@Lu%E1%BA%ADtVi%E1%BB%87nCh%C3%B9aHu%E1%BB%87Nghi%C3%AAm",
       ebook: "https://drive.google.com/drive/folders/1OhcpnhNo4t_usmBrR59dTenbetjppVz8?usp=drive_link",
@@ -1475,10 +1483,17 @@ function searchScore(item, query) {
 
   // Chuẩn hóa CẢ câu tìm kiếm và tiêu đề dữ liệu.
   const normalizedQuery = normalizeOrdinalQuery(query);
-  const normalizedTitle = normalizeOrdinalQuery(item.title);
+  const searchTitle = item.type === "rules"
+    ? [getField(item.row, "rule"), getField(item.row, "Điều thứ"), item.title].join(" ")
+    : item.title;
+  const normalizedTitle = normalizeOrdinalQuery(searchTitle);
 
   const requestedNumber = getOrdinalNumber(query);
-  const itemNumber = getOrdinalNumber(item.title);
+  const itemNumber = item.type === "rules"
+    ? (getOrdinalNumber(getField(item.row, "Điều thứ")) ??
+       getOrdinalNumber(getField(item.row, "rule")) ??
+       getOrdinalNumber(item.title))
+    : getOrdinalNumber(item.title);
 
   // Khi người dùng yêu cầu "thứ 3", không trả về "thứ 13".
   if (
@@ -1508,7 +1523,7 @@ function searchScore(item, query) {
   const headingText = canonicalText(
     normalizeOrdinalQuery(
       [
-        item.title,
+        searchTitle,
         item.chinese,
         item.category,
         getField(item.row, "category")
@@ -1651,17 +1666,43 @@ function searchScore(item, query) {
       );
 
       try {
-        const response = await fetch(source, {
-          cache: "no-store",
-          signal: controller.signal
-        });
+        const fetchRows = async (url) => {
+          const response = await fetch(url, {
+            cache: "no-store",
+            signal: controller.signal
+          });
+          if (!response.ok) throw new Error("HTTP " + response.status);
+          return parseCSV(await response.text());
+        };
 
-        if (!response.ok) {
-          throw new Error("HTTP " + response.status);
-        }
-
-        const text = await response.text();
-        const rows = parseCSV(text);
+        const rows = type === "rules"
+          ? (await Promise.all(CONFIG.rulesTabs.map(async (tab) => {
+              const url = new URL(source);
+              url.searchParams.set("gid", tab.gid);
+              try {
+                const tabRows = await fetchRows(url.toString());
+                return tabRows.map((row, index) => {
+                  const result = { ...row };
+                  // Gán phân loại theo tab, kể cả khi bảng có cột phân loại cũ.
+                  for (const key of Object.keys(result)) {
+                    if (FIELD_NAMES.category.some(name => cleanString(name) === cleanString(key))) {
+                      result[key] = tab.category;
+                    }
+                  }
+                  result.Category = tab.category;
+                  // ID riêng theo tab để các bảng có thể cùng bắt đầu từ số 1.
+                  const originalID = getField(row, "id") || String(index + 1);
+                  for (const key of Object.keys(result)) {
+                    if (FIELD_NAMES.id.some(name => cleanString(name) === cleanString(key))) delete result[key];
+                  }
+                  result.ID = tab.gid === "0" ? originalID : tab.gid + ":" + originalID;
+                  return result;
+                });
+              } catch (error) {
+                throw new Error(tab.category + ": " + error.message);
+              }
+            }))).flat()
+          : await fetchRows(source);
         const items = buildItems(rows, type);
 
         database[type] = items;
@@ -1791,38 +1832,25 @@ function searchScore(item, query) {
         if (item.type === "rules") {
   button.classList.add("rule-result");
 
-  // Dòng 1: nội dung cột Học giới.
-  const ruleHeading = createElement(
-    "div",
-    getField(item.row, "rule") || "Học giới",
-    "rule-heading"
-  );
-
-  // Dòng 2: Tên gọi (Phân loại).
-  const nameLine = createElement(
-    "div",
-    undefined,
-    "rule-name-line"
-  );
-
-  const name = createElement(
-    "span",
-    item.title,
-    "rule-name"
-  );
-
-  nameLine.append(name);
+  // Dòng 1: (Phân loại) Học giới – Điều thứ.
+  const ruleHeading = createElement("div", undefined, "rule-heading");
 
   if (item.category) {
-    nameLine.append(
-      document.createTextNode(" "),
-      createElement(
-        "span",
-        "(" + item.category + ")",
-        "rule-category"
-      )
+    ruleHeading.append(
+      createElement("span", "(" + item.category + ")", "rule-category"),
+      document.createTextNode(" ")
     );
   }
+
+  const ruleTitle = getField(item.row, "rule") || "Học giới";
+  const ruleOrder = String(getField(item.row, "Điều thứ") || "").trim();
+  ruleHeading.append(document.createTextNode(
+    ruleTitle + (ruleOrder ? " – " + ruleOrder : "")
+  ));
+
+  // Dòng 2: Tên gọi; giữ nguyên lớp định dạng hiện có.
+  const nameLine = createElement("div", undefined, "rule-name-line");
+  nameLine.append(createElement("span", item.title, "rule-name"));
 
   button.append(ruleHeading, nameLine);
 } else {
