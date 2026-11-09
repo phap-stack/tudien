@@ -1675,13 +1675,15 @@ function searchScore(item, query) {
           return parseCSV(await response.text());
         };
 
+        const tabWarnings = [];
+        let successfulTabs = 0;
         const rows = type === "rules"
           ? (await Promise.all(CONFIG.rulesTabs.map(async (tab) => {
               const url = new URL(source);
               url.searchParams.set("gid", tab.gid);
               try {
                 const tabRows = await fetchRows(url.toString());
-                return tabRows.map((row, index) => {
+                const mappedRows = tabRows.map((row, index) => {
                   const result = { ...row };
                   // Gán phân loại theo tab, kể cả khi bảng có cột phân loại cũ.
                   for (const key of Object.keys(result)) {
@@ -1698,11 +1700,22 @@ function searchScore(item, query) {
                   result.ID = tab.gid === "0" ? originalID : tab.gid + ":" + originalID;
                   return result;
                 });
+                buildItems(mappedRows, type);
+                successfulTabs++;
+                return mappedRows;
               } catch (error) {
-                throw new Error(tab.category + ": " + error.message);
+                const previousRows = database[type]
+                  .filter(item => item.category === tab.category)
+                  .map(item => item.row);
+                tabWarnings.push(tab.category + ": " + error.message +
+                  (previousRows.length ? " (giữ dữ liệu cũ)" : " (chưa có dữ liệu)"));
+                return previousRows;
               }
             }))).flat()
           : await fetchRows(source);
+        if (type === "rules" && successfulTabs === 0) {
+          throw new Error(tabWarnings.join(" · "));
+        }
         const items = buildItems(rows, type);
 
         database[type] = items;
@@ -1718,7 +1731,8 @@ function searchScore(item, query) {
 
         dataMessages[type] =
           "Cập nhật lúc " +
-          new Date().toLocaleTimeString("vi-VN");
+          new Date().toLocaleTimeString("vi-VN") +
+          (tabWarnings.length ? " · Một số tab chưa cập nhật: " + tabWarnings.join(" · ") : "");
       } catch (error) {
         const reason =
           error.name === "AbortError"
